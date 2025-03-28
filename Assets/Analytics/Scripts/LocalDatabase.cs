@@ -96,13 +96,12 @@ public class LocalDatabase : MonoBehaviour
         // Находим пользователя с таким именем
         var user = db.Table<User>().FirstOrDefault(u => u.Username == username);
 
-        SessionManager.LoggedInUsername = username;
-        SessionManager.LogIn = true;
-        SessionManager.UserID = user.Id;
-
         // Если пользователь найден и пароль совпадает, то вход успешен
         if (user != null && user.PasswordHash == password)
         {
+            SessionManager.LoggedInUsername = username;
+            SessionManager.LogIn = true;
+            SessionManager.UserID = user.Id;
             return true;
         }
         // Иначе вход неуспешен

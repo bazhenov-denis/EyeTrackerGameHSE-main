@@ -58,9 +58,9 @@ public class TimerScript : MonoBehaviour
             int currentUserId = SessionManager.UserID;
             int currentDifficulty = DifficultyManager.Instance.difficultyLevel;
             double completionPercentage = (1 - (double)_errorCount / (score / 100 + _errorCount))*100;
-            Debug.Log("процент: " + completionPercentage + "  "+_errorCount / (score / 100 + _errorCount)
-                + "  " + _errorCount + "  " + (score / 100 + _errorCount));
             int rating = Math.Min(5, (int)(0.6*currentDifficulty*completionPercentage/100 * 5));
+            if (rating < 1)
+                rating = 1;
             // Если игра завершена по таймеру – считаем это поражением (false)
             LocalDatabase.Instance.AddGameHistory(currentUserId, GameName.BeatMice, score, currentDifficulty, true,
                 totalTime, completionPercentage ,_errorCount, rating, GetAverageReactionTime());

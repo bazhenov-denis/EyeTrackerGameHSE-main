@@ -38,9 +38,9 @@ public class CosmonautProgressManager : MonoBehaviour
         float timeTaken = Time.time - startTime;
         int score = EnemyBehaviour.counter; // количество "считанных" врагов
         bool victory = true;
-        double completionPercentage = 1; // игра полностью выполненаъ
+        double completionPercentage = 100; // игра полностью выполнена
         int performanceRating = 5;
-        int difficulty = (DifficultyManager.Instance != null) ? DifficultyManager.Instance.difficultyLevel : 1;
+        int difficulty = DifficultyLevelMenuManager.difficult;
 
         // Сохраняем историю для игры "Космонавт"
         LocalDatabase.Instance.AddGameHistory(SessionManager.UserID, GameName.Сosmonaut, score, difficulty, victory,
@@ -56,9 +56,13 @@ public class CosmonautProgressManager : MonoBehaviour
         int score = EnemyBehaviour.counter;
         bool victory = false;
         int winCount = CounterCosmonavt.WinCount;
-        double completionPercentage = 1 - ((double)score / winCount);
-        int performanceRating = (int)(completionPercentage * 5); // ниже оценка при поражении
-        int difficulty = (DifficultyManager.Instance != null) ? DifficultyManager.Instance.difficultyLevel : 1;
+        double completionPercentage = ((double)score / winCount)*100;
+        int performanceRating = (int)(completionPercentage/100 * 5); // ниже оценка при поражении
+        if (performanceRating < 1)
+            performanceRating = 1;
+        else if (performanceRating > 5)
+            performanceRating = 5;
+        int difficulty = DifficultyLevelMenuManager.difficult;
 
         LocalDatabase.Instance.AddGameHistory(SessionManager.UserID, GameName.Сosmonaut, score, difficulty, victory,
                                                 timeTaken, completionPercentage, 0, performanceRating, GetAverageReactionTime());

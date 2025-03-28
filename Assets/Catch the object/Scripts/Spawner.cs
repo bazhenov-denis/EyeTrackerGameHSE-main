@@ -16,6 +16,8 @@ public class Spawner : MonoBehaviour
     private GameObject e;
     public static float speed = 0.3f;
     public static int countBomb = 2;
+    public static int totalSpawnedObjects = 0;
+
     IEnumerator Spawn()
     {
         while (true)
@@ -32,7 +34,7 @@ public class Spawner : MonoBehaviour
             if (item == null)
                 item = e.AddComponent<CatchObjectItem>();
             item.spawnTime = Time.time;
-
+            totalSpawnedObjects++;
 
             yield return new WaitForSeconds(nextSpawn);
         }

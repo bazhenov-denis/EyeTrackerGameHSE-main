@@ -56,7 +56,11 @@ public class MouseGenerator : MonoBehaviour
             MiceController controller = spawnPoints[randomIndex].GetComponent<MiceController>();
             controller.mice = mice;
 
-            controller.spawnTime = Time.time;  // Фиксируем время появления
+            // Добавляем компонент CatchObjectItem, если его нет, и фиксируем время спавна
+            CatchItem item = mice.GetComponent<CatchItem>();
+            if (item == null)
+                item = mice.AddComponent<CatchItem>();
+            item.spawnTime = Time.time;
 
             // Добавил для удаления мышей.
             StartCoroutine(CheckMouseTimeout(mice, spawnPoints[randomIndex].GetComponent<MiceController>()));
@@ -79,6 +83,16 @@ public class MouseGenerator : MonoBehaviour
         // Если мышь всё ещё существует (не была уничтожена ударом)
         if (!mouseObj.IsUnityNull())
         {
+            // Получаем компонент, который хранит время спавна
+            CatchItem item = mouseObj.GetComponent<CatchItem>();
+            if (item != null)
+            {
+                // Вычисляем время реакции: разница между текущим временем и временем спавна
+                float reactionTime = Time.time - item.spawnTime;
+                // Регистрируем время реакции
+                TimerScript.RecordReactionTime(reactionTime);
+            }
+
             // Регистрируем ошибку
             TimerScript timer = FindObjectOfType<TimerScript>();
             if (timer != null)

@@ -215,8 +215,8 @@ public class GameManager : MonoBehaviour
                 int currentLevel = ButtonManager.Id;     // уровень игры, выбранный ранее
                 bool victory = true;
                 double timeTaken = Time.time - _startTime;
-                double completionPercentage = 1  - (_errorCount / (totalPairs + _errorCount));
-                int performanceRating = (int)(completionPercentage * 5); // пример: чем меньше ошибок, тем выше оценка
+                double completionPercentage = (1  - (_errorCount / (totalPairs + _errorCount)))*100;
+                int performanceRating = (int)(completionPercentage/100 * 5); // пример: чем меньше ошибок, тем выше оценка
 
 
                 // Вычисляем среднее время реакции

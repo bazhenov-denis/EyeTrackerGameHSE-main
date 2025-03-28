@@ -17,12 +17,9 @@ public class LoseWinManager : MonoBehaviour
         if (SessionManager.LogIn)
         {
             CatchObjectProgressManager progressManager = FindObjectOfType<CatchObjectProgressManager>();
-            if (progressManager != null)
-            {
-                // —читаем, что mode == 1 означает победу, иначе поражение
-                bool victory = (mode == 1);
-                progressManager.OnGameEnd(victory);
-            }
+            // —читаем, что mode == 1 означает победу, иначе поражение
+            bool victory = (mode == 1);
+            progressManager.OnGameEnd(victory);
         }
         MenuActivated();
     }
@@ -32,15 +29,15 @@ public class LoseWinManager : MonoBehaviour
         switch (mode)
         {
             case 0:
-            {
-               losePanel.SetActive(true);
-               break;
-            }
+                {
+                    losePanel.SetActive(true);
+                    break;
+                }
             case 1:
-            {
-                winPanel.SetActive(true);
-                break;
-            }
+                {
+                    winPanel.SetActive(true);
+                    break;
+                }
         }
     }
 
@@ -49,25 +46,25 @@ public class LoseWinManager : MonoBehaviour
         switch (difficult)
         {
             case 1:
-            {
-                DifficultCatchObject.Easy();
-                break;
-            }
+                {
+                    DifficultCatchObject.Easy();
+                    break;
+                }
             case 2:
-            {
-                DifficultCatchObject.Medium();
-                break;
-            }
+                {
+                    DifficultCatchObject.Medium();
+                    break;
+                }
             case 3:
-            {
-                DifficultCatchObject.Hard();
-                break;
-            }
+                {
+                    DifficultCatchObject.Hard();
+                    break;
+                }
             case 4:
-            {
-                DifficultCatchObject.Expert();
-                break;
-            }
+                {
+                    DifficultCatchObject.Expert();
+                    break;
+                }
 
         }
     }
