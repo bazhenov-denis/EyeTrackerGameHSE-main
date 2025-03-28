@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f3da4ea7-e18d-4e70-aa2f-de7cc2adf190" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/HammerSprite.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/HammerSprite.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/MouseHole.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/MouseHole.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/Ui Sprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/Ui Sprites.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/background.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/hammer2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/hammer2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/mices1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/mices1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/mices2_asset.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/mices2_asset.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/Группа 1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Image/Группа 1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scene/BeatMiceMainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scene/BeatMiceMainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MiceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MiceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MouseGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MouseGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scripts/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scripts/TimerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scenes/CatchObject.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scenes/CatchObject.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scripts/LoseWinManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scripts/LoseWinManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scripts/ScoreController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scripts/ScoreController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scripts/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scripts/Spawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Memory/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Memory/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Menu/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Menu/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Menu/Scenes/MemoryMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Menu/Scenes/MemoryMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/cosmonavt/scenes/CosmonavtGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/cosmonavt/scenes/CosmonavtGame.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/cosmonavt/scripts/CounterCosmonavt.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/cosmonavt/scripts/CounterCosmonavt.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/cosmonavt/scripts/DefeatC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/cosmonavt/scripts/DefeatC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/cosmonavt/scripts/EnemyBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/cosmonavt/scripts/EnemyBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2ufnuXXKFDBOHE00wmVgBj6AL0O" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3da4ea7-e18d-4e70-aa2f-de7cc2adf190" name="Changes" comment="" />
+      <created>1742648720977</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742648720977</updated>
+      <workItem from="1742648725052" duration="35000" />
+      <workItem from="1742945955713" duration="19000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
