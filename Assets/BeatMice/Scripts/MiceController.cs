@@ -13,6 +13,7 @@ public class MiceController : MonoBehaviour
     public float holdTime = 0.7f; // Время удержания курсора
     public GameObject stars;
     public GameObject mice;
+    public float spawnTime;
 
     public Text scoreText;
     private static int _score;
@@ -57,6 +58,10 @@ public class MiceController : MonoBehaviour
             _holdTimer += Time.deltaTime;
             if (_holdTimer >= holdTime)
             {
+                // Записываем, что игрок поразил мышь – фиксируем время реакции
+                float reactionTime = Time.time - spawnTime;
+                TimerScript.RecordReactionTime(reactionTime);
+
                 // Воспроизвести анимацию удара
                 PlayHammerAnimation();
 

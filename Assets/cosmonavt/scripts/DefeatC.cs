@@ -15,8 +15,12 @@ public class DefeatC : MonoBehaviour
         {
             DefeatPanel.SetActive(true);
             Game.SetActive(false);
+
+            CosmonautProgressManager progressManager = FindObjectOfType<CosmonautProgressManager>();
+            if (progressManager != null)
+            {
+                progressManager.OnGameLose();
+            }
         }
-
-
     }
 }

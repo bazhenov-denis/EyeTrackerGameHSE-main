@@ -29,6 +29,12 @@ public class ScoreController : MonoBehaviour
     {
         if (target.tag == "fruits")
         {
+            CatchObjectItem item = target.GetComponent<CatchObjectItem>();
+            if (item != null)
+            {
+                float reactionTime = Time.time - item.spawnTime;
+                CatchObjectProgressManager.RecordReactionTime(reactionTime);
+            }
             score += 1;
             Destroy(target.gameObject);
             if (score == count)
@@ -41,6 +47,14 @@ public class ScoreController : MonoBehaviour
         {
             score -= 1;
             Destroy(target.gameObject);
+
+            // Регистрируем ошибку при столкновении с врагом
+            CatchObjectProgressManager progressManager = FindObjectOfType<CatchObjectProgressManager>();
+            if (progressManager != null)
+            {
+                progressManager.RegisterError();
+            }
+
             if (score == -1)
             {
                 LoseWinManager.mode = 0;
@@ -50,6 +64,14 @@ public class ScoreController : MonoBehaviour
         else if (target.tag == "bomb")
         {
             Destroy(target.gameObject);
+
+            // Регистрируем ошибку при столкновении с врагом
+            CatchObjectProgressManager progressManager = FindObjectOfType<CatchObjectProgressManager>();
+            if (progressManager != null)
+            {
+                progressManager.RegisterError();
+            }
+
             LoseWinManager.mode = 0;
             SceneManager.LoadScene("LoseWinCatch");
         }

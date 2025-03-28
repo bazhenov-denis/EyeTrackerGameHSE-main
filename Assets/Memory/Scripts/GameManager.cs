@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,12 @@ public class GameManager : MonoBehaviour
     private int gameGuesses;
     private int firstGuessIndex, secondGuessIndex;
     private string firstGuessPuzzle, secondGuessPuzzle;
+
+    private float _startTime;
+    private int _errorCount;
+
+    private float _firstGuessTime;
+    private List<float> _reactionTimes = new List<float>();
 
     public GameObject GameWinPopUp;
 
@@ -66,6 +73,10 @@ public class GameManager : MonoBehaviour
         AddGamePuzzles();
         Shuffle(gamePuzzles);
         gameGuesses = gamePuzzles.Count / 2;
+
+        _startTime = Time.time;   // фиксируем время начала игры
+        _errorCount = 0;          // обнуляем счётчик ошибок
+        _reactionTimes.Clear();   // обнуляем список реакционных времен
     }
 
 
@@ -116,7 +127,7 @@ public class GameManager : MonoBehaviour
         {
             firstGuess = true;
             firstGuessIndex = index;
-
+            _firstGuessTime = Time.time;  // фиксируем время первой карточки
             firstGuessPuzzle = gamePuzzles[firstGuessIndex].name;
             buttons[firstGuessIndex].image.sprite = gamePuzzles[firstGuessIndex];
         }
@@ -124,9 +135,13 @@ public class GameManager : MonoBehaviour
         {
             secondGuess = true;
             secondGuessIndex = index;
-
             secondGuessPuzzle = gamePuzzles[secondGuessIndex].name;
             buttons[secondGuessIndex].image.sprite = gamePuzzles[secondGuessIndex];
+
+            // Вычисляем время реакции – разница между текущим временем и временем первой карточки
+            float reactionTime = Time.time - _firstGuessTime;
+            _reactionTimes.Add(reactionTime);
+            Debug.Log("Время реакции: " + reactionTime.ToString("F2") + " сек");
 
             if (firstGuessPuzzle == secondGuessPuzzle)
             {
@@ -135,6 +150,9 @@ public class GameManager : MonoBehaviour
             else
             {
                 print("not");
+
+                // Если выбранные карточки не совпадают, считаем это ошибкой
+                _errorCount++;
             }
 
             StartCoroutine(CheckThePuzzleMatch());
@@ -189,6 +207,29 @@ public class GameManager : MonoBehaviour
             GameWinPopUp.SetActive(true);
             UnlockNewLevel();
             
+            if (SessionManager.LogIn)
+            {
+                int totalPairs = gamePuzzles.Count / 2;
+                int currentUserId = SessionManager.UserID;
+                int currentScore = countCorrentGuesses; // число угаданных пар
+                int currentLevel = ButtonManager.Id;     // уровень игры, выбранный ранее
+                bool victory = true;
+                double timeTaken = Time.time - _startTime;
+                double completionPercentage = 1  - (_errorCount / (totalPairs + _errorCount));
+                int performanceRating = (int)(completionPercentage * 5); // пример: чем меньше ошибок, тем выше оценка
+
+
+                // Вычисляем среднее время реакции
+                double averageReactionTime = 0;
+                if (_reactionTimes.Count > 0)
+                {
+                    averageReactionTime = _reactionTimes.Average();
+                }
+
+                // Сохраняем историю для Memory игры
+                LocalDatabase.Instance.AddGameHistory(currentUserId, GameName.Memory, currentScore, currentLevel, victory,
+                    timeTaken, completionPercentage, _errorCount, performanceRating, averageReactionTime);
+            }
         }
     }
     

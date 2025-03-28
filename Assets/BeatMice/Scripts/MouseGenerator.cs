@@ -53,7 +53,14 @@ public class MouseGenerator : MonoBehaviour
             float mouseHight = mouseSpawn.GetComponent<SpriteRenderer>().size.y;
             mouseSpawnPos.y += mouseHight / 15;
             var mice = Instantiate(mousePrefabs[randomIndexMouse], mouseSpawnPos, Quaternion.identity);
-            spawnPoints[randomIndex].GetComponent<MiceController>().mice = mice;
+            MiceController controller = spawnPoints[randomIndex].GetComponent<MiceController>();
+            controller.mice = mice;
+
+            controller.spawnTime = Time.time;  // Фиксируем время появления
+
+            // Добавил для удаления мышей.
+            StartCoroutine(CheckMouseTimeout(mice, spawnPoints[randomIndex].GetComponent<MiceController>()));
+
             var smoothMovementCoord =
                 new Vector3(mouseSpawnPos.x, mouseSpawnPos.y + mouseHight / 8, mouseSpawnPos.z);
             mice.transform.position = Vector3.Lerp(mouseSpawnPos, smoothMovementCoord, moveSpeed);
@@ -62,5 +69,29 @@ public class MouseGenerator : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
         }
     }
-    
+
+    // Добавил для удаления мышей.
+    IEnumerator CheckMouseTimeout(GameObject mouseObj, MiceController controller)
+    {
+        // Ждем 5 секунд (время, в течение которого игрок должен ударить мышь)
+        yield return new WaitForSeconds(5f);
+
+        // Если мышь всё ещё существует (не была уничтожена ударом)
+        if (!mouseObj.IsUnityNull())
+        {
+            // Регистрируем ошибку
+            TimerScript timer = FindObjectOfType<TimerScript>();
+            if (timer != null)
+            {
+                timer.RegisterError();
+            }
+
+
+            // Уничтожаем мышь и освобождаем точку спавна
+            Destroy(mouseObj);
+            controller.mice = null;
+        }
+    }
+
+
 }

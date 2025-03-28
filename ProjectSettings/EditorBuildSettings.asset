@@ -44,4 +44,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TobiiPro/Examples/PrefabDemo/ScreenBasedPrefabDemo.unity
     guid: 0ca6705c98c1cd441af0a2fe6c5fb5de
+  - enabled: 1
+    path: Assets/Analytics/Scene/MenuAnalytics.unity
+    guid: 035b2cee299c51641a768a2f20a48e14
+  - enabled: 1
+    path: Assets/Analytics/Scene/ProfileScene.unity
+    guid: 8bdd5ce724d8a5f44b8d1fc7bfc690be
+  - enabled: 1
+    path: Assets/Analytics/Scene/CreateProfile.unity
+    guid: fa4afd14817d56c439d1d4346125c58e
+  - enabled: 1
+    path: Assets/Analytics/Scene/LogIn.unity
+    guid: d2aae9eb5d5b48c4692c7fcf9617fffc
+  - enabled: 1
+    path: Assets/Analytics/Scene/HistoryMenu.unity
+    guid: 60d37a13e23a6f241b2b90cf432c7333
+  - enabled: 1
+    path: Assets/Analytics/Scene/ShowHistory.unity
+    guid: 964b8bfe35be72f4487c0a62967bb4ff
+  - enabled: 1
+    path: Assets/Analytics/Scene/ShowProgress.unity
+    guid: b718b8e0bbc26d948b216c884b2a8570
+  - enabled: 1
+    path: Assets/Analytics/Scene/ChartScene.unity
+    guid: 4a7d56b4022d0554d88c9d845f0ea168
+  - enabled: 1
+    path: Assets/Analytics/Scene/ChartMenu.unity
+    guid: 348a34acbe6d42c4d90b8b5a1f2c181a
+  - enabled: 1
+    path: Assets/Analytics/Scene/ReportMenu.unity
+    guid: 35d050cec5b7cc24ba74f8566a6bfe0a
   m_configObjects: {}

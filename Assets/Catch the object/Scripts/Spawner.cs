@@ -26,6 +26,14 @@ public class Spawner : MonoBehaviour
             whereToSpawn = new Vector3(x, y, 1);
             e = Instantiate(SpawnObject[objectIndex], whereToSpawn, Quaternion.identity, SpawnerScale.transform);
             e.GetComponent<Rigidbody2D>().gravityScale = 0.3f;
+
+            // ƒобавл€ем компонент дл€ фиксации времени спавна, если его нет, и записываем врем€ спавна.
+            CatchObjectItem item = e.GetComponent<CatchObjectItem>();
+            if (item == null)
+                item = e.AddComponent<CatchObjectItem>();
+            item.spawnTime = Time.time;
+
+
             yield return new WaitForSeconds(nextSpawn);
         }
     }

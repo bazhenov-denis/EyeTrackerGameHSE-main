@@ -19,11 +19,14 @@ public class EnemyBehaviour : Sounds
     public static int counter = 0;
     public static float Scale = 1f;
 
+    public float spawnTime; // время появления врага
+
     void Start()
     {
         startPosition = Enemy.transform.position;
         Enemy.transform.localScale = Enemy.transform.localScale * Scale;
         endPosition = new Vector3(0, 0, 1);
+        spawnTime = Time.time; // фиксируем время спавна
     }
     
     void FixedUpdate()
@@ -34,6 +37,12 @@ public class EnemyBehaviour : Sounds
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Вычисляем время реакции как разницу между текущим временем и временем появления врага
+        float reactionTime = Time.time - spawnTime;
+        // Регистрируем время реакции для анализа
+        CosmonautProgressManager.RecordReactionTime(reactionTime);
+
+
         PlaySound(sounds[0]);
         e = Instantiate(Explosion, Enemy.transform.position, Enemy.transform.rotation);
         Destroy(Enemy);

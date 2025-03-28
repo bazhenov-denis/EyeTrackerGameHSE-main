@@ -1,7 +1,14 @@
 {
   "dependencies": {
+    "com.monitor1394.xcharts": {
+      "version": "https://github.com/XCharts-Team/XCharts.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "9e07617cc47556fdbb57a58cc2c9ec95c5e6a44d"
+    },
     "com.tobii.gaming.sdk": {
-      "version": "file:C:/Users/Вилена/Downloads/TobiiUnitySDK_5.0.0.3",
+      "version": "file:C:/Users/davrr/Downloads/Telegram Desktop/TobiiUnitySDK_5.0.0.3",
       "depth": 0,
       "source": "local",
       "dependencies": {}
@@ -28,21 +35,6 @@
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
-    },
-    "com.unity.feature.2d": {
-      "version": "2.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.2d.animation": "7.1.0",
-        "com.unity.2d.pixel-perfect": "5.0.3",
-        "com.unity.2d.psdimporter": "6.0.9",
-        "com.unity.2d.sprite": "1.0.0",
-        "com.unity.2d.spriteshape": "7.0.7",
-        "com.unity.2d.tilemap": "1.0.0",
-        "com.unity.2d.tilemap.extras": "2.2.7",
-        "com.unity.2d.aseprite": "1.1.2"
-      }
     },
     "com.unity.ide.rider": {
       "version": "3.0.28",

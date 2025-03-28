@@ -7,12 +7,23 @@ using UnityEngine.SceneManagement;
 public class LoseWinManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    // 0 Ц поражение, 1 Ц победа
     public static int mode;
     public GameObject winPanel;
     public GameObject losePanel;
 
     public void Start()
     {
+        if (SessionManager.LogIn)
+        {
+            CatchObjectProgressManager progressManager = FindObjectOfType<CatchObjectProgressManager>();
+            if (progressManager != null)
+            {
+                // —читаем, что mode == 1 означает победу, иначе поражение
+                bool victory = (mode == 1);
+                progressManager.OnGameEnd(victory);
+            }
+        }
         MenuActivated();
     }
 

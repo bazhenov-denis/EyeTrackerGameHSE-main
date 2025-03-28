@@ -18,6 +18,15 @@ public class CounterCosmonavt : MonoBehaviour
         {
             WinnerPanel.SetActive(true);
             Game.SetActive(false);
+
+            if (SessionManager.LogIn)
+            {
+                CosmonautProgressManager progressManager = FindObjectOfType<CosmonautProgressManager>();
+                if (progressManager != null)
+                {
+                    progressManager.OnGameWin();
+                }
+            }
         }
     }
 }
