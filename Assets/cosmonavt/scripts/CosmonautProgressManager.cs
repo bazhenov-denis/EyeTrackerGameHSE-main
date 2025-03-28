@@ -57,6 +57,8 @@ public class CosmonautProgressManager : MonoBehaviour
         bool victory = false;
         int winCount = CounterCosmonavt.WinCount;
         double completionPercentage = ((double)score / winCount)*100;
+        if (completionPercentage > 100)
+            completionPercentage = 100;
         int performanceRating = (int)(completionPercentage/100 * 5); // ниже оценка при поражении
         if (performanceRating < 1)
             performanceRating = 1;
