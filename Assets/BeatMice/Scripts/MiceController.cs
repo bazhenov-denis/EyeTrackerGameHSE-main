@@ -9,17 +9,15 @@ using Tobii.Gaming;
 
 public class MiceController : MonoBehaviour
 {
-    public GameObject hammer; // Ссылка на молоток
-    public float holdTime = 0.7f; // Время удержания курсора
+    public GameObject hammer;          // Ссылка на молоток
+    public float holdTime = 0.7f;        // Время удержания курсора
     public GameObject stars;
     public GameObject mice;
-
     public Text scoreText;
     private static int _score;
 
-    private float _holdTimer; // Таймер для отслеживания времени удержания
-
-    private bool _isHolding; // Флаг для определения, удерживается ли курсор
+    private float _holdTimer;           // Таймер удержания
+    private bool _isHolding;            // Флаг, установленный когда курсор находится в зоне (OnMouseEnter)
 
     private Animator _hammerAnimator;
 
@@ -29,54 +27,37 @@ public class MiceController : MonoBehaviour
     private SynchronizationContext _mainThreadContext;
     [SerializeField] private StateGame stateGame;
 
-
     private void Start()
     {
         _mainThreadContext = SynchronizationContext.Current;
         _hammerAnimator = hammer.GetComponent<Animator>();
-        
     }
 
-    // Start is called before the first frame update
     void Update()
     {
         if (stateGame.State != State.Gameplay)
-        {
             return;
-        }
 
-        //Debug.Log(_gazeAware.HasGazeFocus);
-        if (_gazeAware.HasGazeFocus)
+        // Проверяем, есть ли валидный взгляд, или используется мышь (когда _isHolding true)
+        bool useGaze = (_gazeAware != null && _gazeAware.HasGazeFocus);
+        if (useGaze || _isHolding)
         {
-            hammer.SetActive(true); // Отобразить молоток
+            // Перемещаем молоток по координатам объекта (здесь можно улучшить позиционирование)
             Vector2 hammerPosition = GetComponent<Transform>().position;
             hammerPosition.y += GetComponent<BoxCollider2D>().offset.y;
             hammerPosition.x += GetComponent<BoxCollider2D>().size.x / 2;
             hammer.transform.position = hammerPosition;
-           
+
             _holdTimer += Time.deltaTime;
             if (_holdTimer >= holdTime)
             {
-                float reactionTime = 0f;
-                if (mice != null)
-                {
-                    // Получаем компонент CatchObjectItem у текущей мыши
-                    CatchItem item = mice.GetComponent<CatchItem>();
-                    if (item != null)
-                    {
-                        reactionTime = Time.time - item.spawnTime;
-                    }
-                }
-                // Регистрируем время реакции
-                TimerScript.RecordReactionTime(reactionTime);
-
-                // Воспроизвести анимацию удара
+                // Запускаем анимацию удара
                 PlayHammerAnimation();
 
                 float animationLengthHalf = _hammerAnimator.GetCurrentAnimatorStateInfo(0).length / 2;
                 if (!mice.IsUnityNull())
                 {
-                    // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+                    // Вызываем удаление мыши через Invoke
                     Invoke("DestroyMice", animationLengthHalf);
                 }
 
@@ -85,40 +66,26 @@ public class MiceController : MonoBehaviour
         }
         else
         {
-            //_hammerAnimator.SetBool(HitFlag, false);
-
-            //hammer.SetActive(false); // Скрыть молоток
-            _isHolding = false;
-            _holdTimer = 0f; // Сбрасываем таймер, если курсор не удерживается
+            _holdTimer = 0f;
         }
     }
 
     void OnMouseEnter()
     {
-        //if (stateGame.State != State.Gameplay)
-        //{
-        //    return;
-        //}
-
-        hammer.SetActive(true); // Отобразить молоток
-        Vector2 hammerPosition = GetComponent<Transform>().position;
-        hammerPosition.y += GetComponent<BoxCollider2D>().offset.y;
-        hammerPosition.x += GetComponent<BoxCollider2D>().size.x / 2;
-        hammer.transform.position = hammerPosition;
-        _isHolding = true; // Начать отсчет времени удержания
-        _holdTimer = 0f; // Сбросить таймер
+        // Когда курсор (мышь) входит в зону объекта (например, у норы)
+        hammer.SetActive(true);
+        _isHolding = true;
+        _holdTimer = 0f;
     }
 
     void OnMouseExit()
     {
         if (stateGame.State != State.Gameplay)
-        {
             return;
-        }
 
         _hammerAnimator.SetBool(HitFlag, false);
         _hammerAnimator.Play("DefoltHummer");
-        hammer.SetActive(false); // Скрыть молоток
+        hammer.SetActive(false);
         _isHolding = false;
         ResetHoldTimer();
     }
@@ -127,7 +94,6 @@ public class MiceController : MonoBehaviour
     {
         _holdTimer = 0f;
     }
-
 
     void PlayHammerAnimation()
     {

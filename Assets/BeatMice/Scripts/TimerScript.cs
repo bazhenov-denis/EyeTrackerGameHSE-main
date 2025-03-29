@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 public class TimerScript : MonoBehaviour
 {
@@ -48,9 +49,15 @@ public class TimerScript : MonoBehaviour
     private void ShowGameOverScreen()
     {
         stateGame.SetState(State.StopGame);
-        var titleText = endLevelMenu.gameObject.GetComponentInChildren<Text>();
+        // Получаем компонент TextMeshProUGUI, который используется для UI-текста
+        var titleText = endLevelMenu.gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        if (titleText == null)
+        {
+            Debug.LogError("TextMeshProUGUI не найден в дочерних объектах endLevelMenu!");
+            return;
+        }
         int score = _miceController.GetScore();
-        titleText.text += _miceController.GetScore().ToString();
+        titleText.text += score.ToString();
 
         // Сохраняем историю прохождения, если вход выполнен
         if (SessionManager.LogIn)

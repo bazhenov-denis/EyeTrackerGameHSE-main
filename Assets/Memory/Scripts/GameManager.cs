@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Sprite bgImage;
     public List<Button> buttons = new List<Button>();
-    [SerializeField] public GridLayoutGroup tobiField;
+
     public Sprite[] puzzles;
     public List<Sprite> gamePuzzles = new List<Sprite>();
 
@@ -19,12 +18,6 @@ public class GameManager : MonoBehaviour
     private int gameGuesses;
     private int firstGuessIndex, secondGuessIndex;
     private string firstGuessPuzzle, secondGuessPuzzle;
-
-    private float _startTime;
-    private int _errorCount;
-
-    private float _firstGuessTime;
-    private List<float> _reactionTimes = new List<float>();
 
     public GameObject GameWinPopUp;
 
@@ -73,10 +66,6 @@ public class GameManager : MonoBehaviour
         AddGamePuzzles();
         Shuffle(gamePuzzles);
         gameGuesses = gamePuzzles.Count / 2;
-
-        _startTime = Time.time;   // фиксируем время начала игры
-        _errorCount = 0;          // обнуляем счётчик ошибок
-        _reactionTimes.Clear();   // обнуляем список реакционных времен
     }
 
 
@@ -107,41 +96,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        
-    }
-    public void AddListeners()
+    void AddListeners()
     {
         foreach (Button btn in buttons)
         {
-            btn.onClick.AddListener(() => PickPuzzle(int.Parse(btn.name)));
-            //btn.onClick.AddListener(PickPuzzle);
+            btn.onClick.AddListener(() => PickPuzzle());
         }
     }
 
-    public void PickPuzzle(int index)
+    public void PickPuzzle()
     {
 
         if (!firstGuess)
         {
             firstGuess = true;
-            firstGuessIndex = index;
-            _firstGuessTime = Time.time;  // фиксируем время первой карточки
+            firstGuessIndex = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
+
             firstGuessPuzzle = gamePuzzles[firstGuessIndex].name;
             buttons[firstGuessIndex].image.sprite = gamePuzzles[firstGuessIndex];
         }
         else if (!secondGuess)
         {
             secondGuess = true;
-            secondGuessIndex = index;
+            secondGuessIndex = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
+
             secondGuessPuzzle = gamePuzzles[secondGuessIndex].name;
             buttons[secondGuessIndex].image.sprite = gamePuzzles[secondGuessIndex];
-
-            // Вычисляем время реакции – разница между текущим временем и временем первой карточки
-            float reactionTime = Time.time - _firstGuessTime;
-            _reactionTimes.Add(reactionTime);
-            Debug.Log("Время реакции: " + reactionTime.ToString("F2") + " сек");
 
             if (firstGuessPuzzle == secondGuessPuzzle)
             {
@@ -150,9 +130,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 print("not");
-
-                // Если выбранные карточки не совпадают, считаем это ошибкой
-                _errorCount++;
             }
 
             StartCoroutine(CheckThePuzzleMatch());
@@ -167,22 +144,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             buttons[firstGuessIndex].interactable = false;
             buttons[secondGuessIndex].interactable = false;
-            foreach (Transform child in tobiField.transform)
-            {
-                GameObject g = child.gameObject;
-                if (g.name == buttons[firstGuessIndex].name)
-                {
-                    g.GetComponent < BoxCollider>().enabled = false;
-                }
-            }
-            foreach (Transform child in tobiField.transform)
-            {
-                GameObject g = child.gameObject;
-                if (g.name == buttons[secondGuessIndex].name)
-                {
-                    g.GetComponent<BoxCollider>().enabled = false;
-                }
-            }
+
             buttons[firstGuessIndex].image.color = new Color(0, 0, 0, 0);
             buttons[secondGuessIndex].image.color = new Color(0, 0, 0, 0);
             
@@ -207,29 +169,6 @@ public class GameManager : MonoBehaviour
             GameWinPopUp.SetActive(true);
             UnlockNewLevel();
             
-            if (SessionManager.LogIn)
-            {
-                int totalPairs = gamePuzzles.Count / 2;
-                int currentUserId = SessionManager.UserID;
-                int currentScore = countCorrentGuesses; // число угаданных пар
-                int currentLevel = ButtonManager.Id;     // уровень игры, выбранный ранее
-                bool victory = true;
-                double timeTaken = Time.time - _startTime;
-                double completionPercentage = (1  - (_errorCount / (totalPairs + _errorCount)))*100;
-                int performanceRating = (int)(completionPercentage/100 * 5); // пример: чем меньше ошибок, тем выше оценка
-
-
-                // Вычисляем среднее время реакции
-                double averageReactionTime = 0;
-                if (_reactionTimes.Count > 0)
-                {
-                    averageReactionTime = _reactionTimes.Average();
-                }
-
-                // Сохраняем историю для Memory игры
-                LocalDatabase.Instance.AddGameHistory(currentUserId, GameName.Memory, currentScore, currentLevel, victory,
-                    timeTaken, completionPercentage, _errorCount, performanceRating, averageReactionTime);
-            }
         }
     }
     
