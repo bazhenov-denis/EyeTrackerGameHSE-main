@@ -49,7 +49,7 @@ public class TimerScript : MonoBehaviour
     private void ShowGameOverScreen()
     {
         stateGame.SetState(State.StopGame);
-        // Получаем компонент TextMeshProUGUI, который используется для UI-текста
+        // Получаем компонент TextMeshProUGUI, который используется для UI-текста.
         var titleText = endLevelMenu.gameObject.GetComponentInChildren<TextMeshProUGUI>();
         if (titleText == null)
         {
@@ -59,23 +59,51 @@ public class TimerScript : MonoBehaviour
         int score = _miceController.GetScore();
         titleText.text += score.ToString();
 
-        // Сохраняем историю прохождения, если вход выполнен
+        // Сохраняем историю прохождения, если вход выполнен.
         if (SessionManager.LogIn)
         {
             int currentUserId = SessionManager.UserID;
             int currentDifficulty = DifficultyManager.Instance.difficultyLevel;
-            double completionPercentage = (1 - (double)_errorCount / (score / 100 + _errorCount))*100;
-            int rating = Math.Min(5, (int)(0.6*currentDifficulty*completionPercentage/100 * 5));
+            double completionPercentage = (1 - (double)_errorCount / (score / 100 + _errorCount)) * 100;
+            int rating = 1;
+            switch (currentDifficulty)
+            {
+                case 1:
+                    rating = (int)(completionPercentage / 100 * 5);
+                    break;
+                case 2:
+                    rating = (int)(1.4 * completionPercentage / 100 * 5);
+                    break;
+                case 3:
+                    rating = (int)(1.6 * completionPercentage / 100 * 5);
+                    break;
+                case 4:
+                    rating = (int)(1.8 * currentDifficulty * completionPercentage / 100 * 5);
+                    break;
+                default:
+                    rating = (int)(0.7 * currentDifficulty * completionPercentage / 100 * 5);
+                    break;
+
+            }
             if (rating < 1)
                 rating = 1;
-            // Если игра завершена по таймеру – считаем это поражением (false)
+            else if (rating > 5)
+                rating = 5;
+
+            float avarageReaction = GetAverageReactionTime();
             LocalDatabase.Instance.AddGameHistory(currentUserId, GameName.BeatMice, score, currentDifficulty, true,
-                totalTime, completionPercentage ,_errorCount, rating, GetAverageReactionTime());
+                totalTime, completionPercentage, _errorCount, rating, avarageReaction);
+
+            Debug.Log($"Время прохождения: {totalTime}");
+            Debug.Log($"Счет: {score}");
+            Debug.Log($"Количество ошибок: {_errorCount}");
+            Debug.Log($"Текущий уровень: {currentDifficulty}");
+            Debug.Log($"Точность выполнения: {completionPercentage}");
+            Debug.Log($"Рейтинг: {rating}");
+            Debug.Log($"Среднее время реакции: {avarageReaction}");
         }
 
         endLevelMenu.gameObject.SetActive(true);
-        // Здесь можно вызвать UI окно с результатом
-        // Debug.Log("Время истекло! Ваш счет: " + PlayerScore.score);
     }
 
     public void RegisterError()

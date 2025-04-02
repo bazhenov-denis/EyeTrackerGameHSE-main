@@ -15,7 +15,7 @@ public class PauseGame : MonoBehaviour
         // _mouseGenerator.Pause();
         foreach (var miceController in GetComponentsInChildren<MiceController>())
         {
-            // miceController.StopGame();
+             //miceController.StopGame();
         }
     }
 
@@ -25,7 +25,7 @@ public class PauseGame : MonoBehaviour
         // _mouseGenerator.Pause();
         foreach (var miceController in GetComponentsInChildren<MiceController>())
         {
-            // miceController.EndGame();
+             //miceController.EndGame();
         }
     }
 
@@ -34,7 +34,7 @@ public class PauseGame : MonoBehaviour
         // _mouseGenerator.Resume();
         foreach (var miceController in GetComponentsInChildren<MiceController>())
         {
-            // miceController.ResumeGame();
+             //miceController.ResumeGame();
         }
     }
 }

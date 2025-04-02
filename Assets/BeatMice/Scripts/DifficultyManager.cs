@@ -10,6 +10,7 @@ public class DifficultyManager : MonoBehaviour
     public float spawnInterval = 4f; // Интервал между появлением мышей
     public int gameTime = 60; // Сколько длится игра
     public float hummerHitInterval = 0.9f;
+    public float waitTime = 5f;
 
     private void Awake()
     {

@@ -21,6 +21,7 @@ public class DifficultySelectMenu : MonoBehaviour
         DifficultyManager.Instance.spawnInterval = 3f;
         DifficultyManager.Instance.gameTime = 70;
         DifficultyManager.Instance.hummerHitInterval = 0.8f;
+        DifficultyManager.Instance.waitTime = 6f;
         SceneManager.LoadScene("BeatMiceMainScene");
         // Другие параметры
     }
@@ -31,6 +32,7 @@ public class DifficultySelectMenu : MonoBehaviour
         DifficultyManager.Instance.spawnInterval = 2f;
         DifficultyManager.Instance.gameTime = 80;
         DifficultyManager.Instance.hummerHitInterval = 0.7f;
+        DifficultyManager.Instance.waitTime = 7.5f;
         SceneManager.LoadScene("BeatMiceMainScene");
         // Другие параметры
     }
@@ -41,6 +43,7 @@ public class DifficultySelectMenu : MonoBehaviour
         DifficultyManager.Instance.spawnInterval = 1f;
         DifficultyManager.Instance.gameTime = 90;
         DifficultyManager.Instance.hummerHitInterval = 0.6f;
+        DifficultyManager.Instance.waitTime = 10f;
         SceneManager.LoadScene("BeatMiceMainScene");
         // Другие параметры
     }

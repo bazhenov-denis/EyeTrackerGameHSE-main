@@ -32,6 +32,7 @@ public class MenuManagerCosmonavt : MonoBehaviour
     
     public void GameMenu()
     {
+        EnemyBehaviour.counter = 0;
         SceneManager.LoadScene("TrainingMenu");
     }
 

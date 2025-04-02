@@ -12,13 +12,11 @@ public class ReportManager : MonoBehaviour
 
     void Start()
     {
-        // Устанавливаем текст кнопки равным имени пользователя из сессии
         userNameText.text = SessionManager.LoggedInUsername;
     }
 
     public string fileNameFormat = "AllData_{USERNAME}.csv";
 
-    // Вызывается при нажатии кнопки "Скачать все данные"
     public void ExportAllData()
     {
         string userName = SessionManager.LoggedInUsername;
@@ -29,7 +27,6 @@ public class ReportManager : MonoBehaviour
             userName = userName.Replace(c.ToString(), "_");
         }
 
-        // Подставляем имя пользователя в шаблон (например, "AllData_{USERNAME}.csv")
         string finalFileName = fileNameFormat.Replace("{USERNAME}", userName);
 
         List<GameHistory> records = LocalDatabase.Instance.GetAllHistoryForUser(SessionManager.UserID);
@@ -46,28 +43,24 @@ public class ReportManager : MonoBehaviour
         // 1. Путь к папке, в которой лежит Assets (одним уровнем выше, чем Assets)
         string projectFolder = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
         string targetFolder = Path.Combine(projectFolder, "CsvDataExport");
-        // 3. Путь к файлу (например, mydatabase.db)
         string path = Path.Combine(targetFolder, finalFileName);
 
         // Записываем CSV в файл
         File.WriteAllText(path, csv, Encoding.UTF8);
 
-        Debug.Log("Данные сохранены в CSV-файл: " + path);
+        Debug.Log("Все данные сохранены в CSV-файл: " + path);
     }
 
     private string BuildCsv(List<GameHistory> records)
     {
-        // Первая строка — заголовки колонок
+        // Заголовки колонок.
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("DatePlayed,Score,DifficultyLevel,Victory,TimeTaken,CompletionPercentage,ErrorCount,PerformanceRating,AverageReactionTime");
+        sb.AppendLine("Game;DatePlayed;Score;DifficultyLevel;Victory;TimeTaken;CompletionPercentage;ErrorCount;PerformanceRating;AverageReactionTime");
 
-        // Далее каждая строка — отдельная запись
+        // Формируем строку для каждой записи.
         foreach (var rec in records)
         {
-            // Формируем строку CSV
-            // Если в значениях могут быть запятые, лучше взять другой разделитель, например `;`
-            // Или экранировать строки в кавычках
-            sb.AppendLine($"{rec.DatePlayed:yyyy-MM-dd HH:mm:ss},{rec.Score},{rec.DifficultyLevel},{rec.Victory},{rec.TimeTaken},{rec.CompletionPercentage},{rec.ErrorCount},{rec.PerformanceRating},{rec.AverageReactionTime}");
+            sb.AppendLine($"{rec.Game};{rec.DatePlayed:yyyy-MM-dd HH:mm:ss};{rec.Score};{rec.DifficultyLevel};{rec.Victory};{rec.TimeTaken:F2};{rec.CompletionPercentage:F2};{rec.ErrorCount};{rec.PerformanceRating:F2};{rec.AverageReactionTime:F2}");
         }
         return sb.ToString();
     }

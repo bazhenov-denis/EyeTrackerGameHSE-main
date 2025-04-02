@@ -13,7 +13,6 @@ public class LoginUI : MonoBehaviour
         string username = usernameField.text.Trim();
         string password = passwordField.text;
 
-        // Простая проверка
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             resultText.text = "Введите имя и пароль!";
@@ -25,7 +24,7 @@ public class LoginUI : MonoBehaviour
         if (success)
         {
             resultText.text = "Вход выполнен!";
-            resultText.color = Color.green;
+            resultText.color = new Color(0f, 0.5f, 0f, 1f);
 
             SceneManager.LoadScene("ProfileScene");
         }

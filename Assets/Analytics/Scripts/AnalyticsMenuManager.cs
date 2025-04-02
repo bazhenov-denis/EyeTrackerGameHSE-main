@@ -3,10 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class AnalyticsMenuManager : MonoBehaviour
 {
-    // Этот метод будет вызываться при нажатии на кнопку "Профиль"
     public void OpenProfile()
     {
-        // Замените "ProfileScene" на точное имя вашей сцены профиля, указанное в Build Settings
         SceneManager.LoadScene("ProfileScene");
     }
 
@@ -36,8 +34,6 @@ public class AnalyticsMenuManager : MonoBehaviour
     public void OpenGeneration()
     {
         if (SessionManager.LogIn)
-        {
             SceneManager.LoadScene("ReportMenu");
-        }
     }
 }

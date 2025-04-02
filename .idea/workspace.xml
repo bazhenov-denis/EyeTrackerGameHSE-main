@@ -2,28 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3da4ea7-e18d-4e70-aa2f-de7cc2adf190" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/ChartMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/ChartMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/ChartScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/ChartScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/CreateProfile.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/CreateProfile.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/HistoryMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/HistoryMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/LogIn.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/LogIn.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/MenuAnalytics.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/MenuAnalytics.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/ProfileScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/ProfileScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/ReportMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/ReportMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/ShowHistory.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/ShowHistory.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Analytics/Scene/ShowProgress.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Analytics/Scene/ShowProgress.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MiceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MiceController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MouseGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scripts/MouseGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scripts/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scripts/TimerScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scenes/LoseWinCatch.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scenes/LoseWinCatch.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scripts/CatchObjectProgressManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scripts/CatchObjectProgressManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scripts/LoseWinManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scripts/LoseWinManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Catch the object/Scripts/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Catch the object/Scripts/Spawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Memory/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Memory/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Menu/Scenes/FocusMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Menu/Scenes/FocusMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/cosmonavt/scripts/CosmonautProgressManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/cosmonavt/scripts/CosmonautProgressManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SqLiteData/mydatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/SqLiteData/mydatabase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BeatMice/Scripts/PauseGame.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BeatMice/Scripts/PauseGame.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +49,7 @@
       <workItem from="1742648725052" duration="35000" />
       <workItem from="1742945955713" duration="19000" />
       <workItem from="1743190284469" duration="84000" />
+      <workItem from="1743249187723" duration="40000" />
     </task>
     <servers />
   </component>

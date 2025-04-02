@@ -51,6 +51,19 @@ public class MiceController : MonoBehaviour
             _holdTimer += Time.deltaTime;
             if (_holdTimer >= holdTime)
             {
+                float reactionTime = 0f;
+                if (mice != null)
+                {
+                    // Получаем компонент CatchObjectItem у текущей мыши
+                    CatchItem item = mice.GetComponent<CatchItem>();
+                    if (item != null)
+                    {
+                        reactionTime = Time.time - item.spawnTime;
+                    }
+                }
+                // Регистрируем время реакции
+                TimerScript.RecordReactionTime(reactionTime);
+
                 // Запускаем анимацию удара
                 PlayHammerAnimation();
 

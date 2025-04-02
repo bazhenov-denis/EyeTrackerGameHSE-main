@@ -77,8 +77,7 @@ public class MouseGenerator : MonoBehaviour
     // Добавил для удаления мышей.
     IEnumerator CheckMouseTimeout(GameObject mouseObj, MiceController controller)
     {
-        // Ждем 5 секунд (время, в течение которого игрок должен ударить мышь)
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(DifficultyManager.Instance.waitTime);
 
         // Если мышь всё ещё существует (не была уничтожена ударом)
         if (!mouseObj.IsUnityNull())

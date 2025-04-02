@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class ProgressViewer : MonoBehaviour
 {
-    // UI-поля, куда будем выводить данные
     [SerializeField] private TextMeshProUGUI gameNameText;
     [SerializeField] private TextMeshProUGUI dateText;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -16,9 +15,9 @@ public class ProgressViewer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI mistakesText;
     [SerializeField] private TextMeshProUGUI accuracyText;
     [SerializeField] private TextMeshProUGUI ratingText;
-    [SerializeField] private Button userName;
+    [SerializeField] private TextMeshProUGUI userName;
 
-    // Кнопки "предыдущая" и "следующая"
+    // Кнопки "предыдущая" и "следующая".
     [SerializeField] private Button prevButton;
     [SerializeField] private Button nextButton;
 
@@ -27,34 +26,31 @@ public class ProgressViewer : MonoBehaviour
 
     void Start()
     {
-        // Подгружаем записи из базы
+        // Подгружаем записи из базы.
         var selectedGame = SessionManager.SelectedGame;
         int userId = SessionManager.UserID;
 
         _historyList = LocalDatabase.Instance.GetHistoryForGame(userId, selectedGame);
 
-        // Если нет записей - можете вывести сообщение "Нет истории" или скрыть кнопки
         if (_historyList == null || _historyList.Count == 0)
         {
             ShowEmptyState(selectedGame);
             return;
         }
 
-        // Показываем первую запись
+        // Показываем первую запись.
         _currentIndex = 0;
         ShowRecord(_historyList[_currentIndex]);
 
-        // Подписываемся на события кнопок
+        // Подписываемся на события кнопок.
         prevButton.onClick.AddListener(OnPrevClicked);
         nextButton.onClick.AddListener(OnNextClicked);
 
-        // В конце Start() обновляем состояние кнопок
         UpdateButtonStates();
     }
 
     void ShowRecord(GameHistory record)
     {
-        // Название игры
         switch (record.Game)
         {
             case GameName.BeatMice:
@@ -71,13 +67,10 @@ public class ProgressViewer : MonoBehaviour
                 break;
         }
 
-        // Дата (форматируем при желании)
         dateText.text = record.DatePlayed.ToString("dd.MM.yyyy HH:mm");
 
-        // Счёт
         scoreText.text = record.Score.ToString();
 
-        // Уровень сложности (при желании можно придумать текстовые названия)
         difficultyText.text = record.DifficultyLevel.ToString();
 
         timeText.text = record.TimeTaken.ToString("F1") + " sec";
@@ -86,16 +79,13 @@ public class ProgressViewer : MonoBehaviour
 
         accuracyText.text = record.CompletionPercentage.ToString("F1") + "%";
 
-        // Рейтинг
         ratingText.text = record.PerformanceRating.ToString();
 
-        TextMeshProUGUI textComponent = userName.GetComponentInChildren<TextMeshProUGUI>();
-        textComponent.text = SessionManager.LoggedInUsername;
+        userName.text = SessionManager.LoggedInUsername;
     }
 
     void ShowEmptyState(GameName selectedGame)
     {
-        // Либо вывести заглушку, либо отключить UI
         switch (selectedGame)
         {
             case GameName.BeatMice:
@@ -122,8 +112,7 @@ public class ProgressViewer : MonoBehaviour
         accuracyText.text = "Нет записей";
         ratingText.text = "Нет записей";
 
-        TextMeshProUGUI textComponent = userName.GetComponentInChildren<TextMeshProUGUI>();
-        textComponent.text = SessionManager.LoggedInUsername;
+        userName.text = SessionManager.LoggedInUsername;
 
         prevButton.gameObject.SetActive(false);
         nextButton.gameObject.SetActive(false);

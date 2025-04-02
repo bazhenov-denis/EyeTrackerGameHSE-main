@@ -5,15 +5,17 @@ using System.Linq;
 using XCharts.Runtime;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+using System.Text;
 
 public class ChartUpdater : MonoBehaviour
 {
     [SerializeField] private LineChart lineChart;
-    [SerializeField] private Button userName;
+    [SerializeField] private TextMeshProUGUI userName;
 
-    // Список значений для выбранного параметра
+    // Список значений для выбранного параметра.
     private List<float> paramValues;
-    // Метки оси X (даты)
+    // Метки оси X (даты).
     private List<string> dateLabels;
 
     void Start()
@@ -27,7 +29,6 @@ public class ChartUpdater : MonoBehaviour
         int userId = SessionManager.UserID;
         GameName selectedGame = SessionManager.SelectedGame;
 
-        // Загружаем все записи
         List<GameHistory> records = LocalDatabase.Instance.GetHistoryForGame(userId, selectedGame);
         if (records == null || records.Count == 0)
         {
@@ -36,16 +37,16 @@ public class ChartUpdater : MonoBehaviour
             return;
         }
 
-        // Сортируем записи по дате в порядке возрастания:
+        // Сортируем записи по дате в порядке возрастания.
         records = records.OrderBy(r => r.DatePlayed).ToList();
 
-        // Формируем список дат
+        // Формируем список дат.
         dateLabels = records.Select(r => r.DatePlayed.ToString("dd.MM.yyyy HH:mm")).ToList();
 
-        // Определяем, какой параметр выбрал пользователь
-        MetricName selectedParam = SessionManager.MetricName; // "AverageReactionTime", "ErrorCount", ...
+        // Определяем, какой параметр выбрал пользователь.
+        MetricName selectedParam = SessionManager.MetricName;
 
-        // Преобразуем записи в список float, в зависимости от выбранного параметра
+        // Преобразуем записи в список float, в зависимости от выбранного параметра.
         switch (selectedParam)
         {
             case MetricName.AverageReactionTime:
@@ -55,7 +56,6 @@ public class ChartUpdater : MonoBehaviour
                 paramValues = records.Select(r => (float)r.TimeTaken).ToList();
                 break;
             case MetricName.CompletionPercentage:
-                // Предположим, хотим показывать от 0 до 100
                 paramValues = records.Select(r => (float)(r.CompletionPercentage)).ToList();
                 break;
             case MetricName.ErrorCount:
@@ -65,22 +65,19 @@ public class ChartUpdater : MonoBehaviour
                 paramValues = records.Select(r => (float)r.PerformanceRating).ToList();
                 break;
             default:
-                // Если ничего не выбрано или что-то не то, оставим пустой список
                 paramValues = new List<float>();
                 break;
         }
 
-        // Обновим имя пользователя на кнопке (как было в вашем коде)
-        TextMeshProUGUI textComponent = userName.GetComponentInChildren<TextMeshProUGUI>();
-        textComponent.text = SessionManager.LoggedInUsername;
+        userName.text = SessionManager.LoggedInUsername;
     }
 
     public void UpdateChart()
     {
-        // Очищаем все данные графика
+        // Очищаем все данные графика.
         lineChart.ClearData();
 
-        // Получаем (или создаём) XAxis
+        // Получаем (или создаём) XAxis.
         var xAxis = lineChart.GetChartComponent<XAxis>(0);
         if (xAxis != null)
         {
@@ -111,15 +108,14 @@ public class ChartUpdater : MonoBehaviour
                 break;
         }
 
-        // Меняем имя серии 0
-        var serie = lineChart.GetSerie(0);
-        if (serie != null)
+        // Получаем компонент Title графика.
+        var title = lineChart.GetChartComponent<Title>();
+        if (title != null)
         {
-            serie.serieName = paramName;
+            title.text = paramName;
         }
 
-        // Так как у нас одна серия, убедитесь, что в Inspector у LineChart есть хотя бы одна Serie (Serie 0)
-        // Добавляем данные в серию 0
+        // Добавляем данные в серию 0.
         for (int i = 0; i < paramValues.Count; i++)
         {
             lineChart.AddData(0, paramValues[i]);

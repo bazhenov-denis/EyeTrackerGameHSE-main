@@ -6,15 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class GameHistoryViewer : MonoBehaviour
 {
-    // UI-поля, куда будем выводить данные
     [SerializeField] private TextMeshProUGUI gameNameText;
     [SerializeField] private TextMeshProUGUI dateText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI difficultyText;
     [SerializeField] private TextMeshProUGUI resultText;
-    [SerializeField] private Button userName;
+    [SerializeField] private TextMeshProUGUI userName;
 
-    // Кнопки "предыдущая" и "следующая"
+    // Кнопки "предыдущая" и "следующая".
     [SerializeField] private Button prevButton;
     [SerializeField] private Button nextButton;
 
@@ -23,34 +22,31 @@ public class GameHistoryViewer : MonoBehaviour
 
     void Start()
     {
-        // Подгружаем записи из базы
+        // Подгружаем записи из базы.
         var selectedGame = SessionManager.SelectedGame;
         int userId = SessionManager.UserID;
 
         _historyList = LocalDatabase.Instance.GetHistoryForGame(userId, selectedGame);
 
-        // Если нет записей - можете вывести сообщение "Нет истории" или скрыть кнопки
         if (_historyList == null || _historyList.Count == 0)
         {
             ShowEmptyState(selectedGame);
             return;
         }
 
-        // Показываем первую запись
+        // Показываем первую запись.
         _currentIndex = 0;
         ShowRecord(_historyList[_currentIndex]);
 
-        // Подписываемся на события кнопок
+        // Подписываемся на события кнопок.
         prevButton.onClick.AddListener(OnPrevClicked);
         nextButton.onClick.AddListener(OnNextClicked);
 
-        // В конце Start() обновляем состояние кнопок
         UpdateButtonStates();
     }
 
     void ShowRecord(GameHistory record)
     {
-        // Название игры
         switch (record.Game)
         {
             case GameName.BeatMice:
@@ -67,25 +63,19 @@ public class GameHistoryViewer : MonoBehaviour
                 break;
         }
 
-        // Дата (форматируем при желании)
         dateText.text = record.DatePlayed.ToString("dd.MM.yyyy HH:mm");
 
-        // Счёт
         scoreText.text = record.Score.ToString();
 
-        // Уровень сложности (при желании можно придумать текстовые названия)
         difficultyText.text = record.DifficultyLevel.ToString();
 
-        // Результат
         resultText.text = record.Victory ? "Победа" : "Поражение";
 
-        TextMeshProUGUI textComponent = userName.GetComponentInChildren<TextMeshProUGUI>();
-        textComponent.text = SessionManager.LoggedInUsername;
+        userName.text = SessionManager.LoggedInUsername;
     }
 
     void ShowEmptyState(GameName selectedGame)
     {
-        // Либо вывести заглушку, либо отключить UI
         switch (selectedGame)
         {
             case GameName.BeatMice:
@@ -106,8 +96,7 @@ public class GameHistoryViewer : MonoBehaviour
         difficultyText.text = "Нет записей";
         resultText.text = "Нет записей";
 
-        TextMeshProUGUI textComponent = userName.GetComponentInChildren<TextMeshProUGUI>();
-        textComponent.text = SessionManager.LoggedInUsername;
+        userName.text = SessionManager.LoggedInUsername;
 
         prevButton.gameObject.SetActive(false);
         nextButton.gameObject.SetActive(false);

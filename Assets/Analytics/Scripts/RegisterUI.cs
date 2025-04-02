@@ -10,17 +10,15 @@ public class RegisterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI resultText;
 
 
-    [SerializeField] private Color successColor = Color.green;
+    [SerializeField] private Color successColor = new Color(0f, 0.5f, 0f, 1f);
     [SerializeField] private Color errorColor = Color.red;
 
-    // Вызывается при нажатии на кнопку "Подтвердить"
     public void OnRegisterButtonClick()
     {
         string username = usernameField.text.Trim();
         string password = passwordField.text;
         string confirmPassword = confirmPasswordField.text;
 
-        // Простейшие проверки
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             resultText.text = "Поля не должны быть пустыми!";
@@ -35,7 +33,6 @@ public class RegisterUI : MonoBehaviour
             return;
         }
 
-        // Используем синглтон LocalDatabase.Instance
         bool success = LocalDatabase.Instance.RegisterUser(username, password);
         if (success)
         {

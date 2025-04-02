@@ -1070,7 +1070,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -364, y: -221}
+  m_AnchoredPosition: {x: -370, y: -230}
   m_SizeDelta: {x: 160, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1132453382
@@ -1672,8 +1672,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1821,7 +1821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e11f72889fad384fb2e86c9b54fc72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetButton: {fileID: 1946105660}
+  userName: {fileID: 2060692457}
 --- !u!4 &1756180579
 Transform:
   m_ObjectHideFlags: 0
@@ -1918,7 +1918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 367, y: 224}
+  m_AnchoredPosition: {x: 395, y: 230}
   m_SizeDelta: {x: 160, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946105660

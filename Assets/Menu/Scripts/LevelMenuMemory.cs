@@ -16,7 +16,6 @@ public class LevelMenuMemory : MonoBehaviour
     {
         ButtonsToArray();
         unlockedLevel = PlayerPrefs.GetInt("unlockedlevel", 1);
-        Debug.Log(unlockedLevel);
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].interactable = false;
