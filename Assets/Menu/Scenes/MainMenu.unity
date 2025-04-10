@@ -658,7 +658,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u0412\u044B \u0435\u0449\u0451 \u043D\u0435 \u043F\u0440\u043E\u0448\u043B\u0438
-    \u043A\u043E\u043B\u0438\u0431\u0440\u043E\u0432\u043A\u0443!"
+    \u043A\u0430\u043B\u0438\u0431\u0440\u043E\u0432\u043A\u0443!"
 --- !u!222 &345432858
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5269,7 +5269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1744372604
 RectTransform:
   m_ObjectHideFlags: 0
