@@ -312,6 +312,8 @@ MonoBehaviour:
   Button: {fileID: 104387418}
   holdTime: 2
   indicatorAnimation: {fileID: 933436976}
+  gazeReceiver: {fileID: 0}
+  mainCamera: {fileID: 519420031}
 --- !u!65 &104387420
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1008,6 +1010,8 @@ MonoBehaviour:
   Button: {fileID: 236367007}
   holdTime: 2
   indicatorAnimation: {fileID: 1015487952}
+  gazeReceiver: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!65 &372206716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1284,7 +1288,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: c52b9ef39703ebb4ebaf76a9b44fe717, type: 3}
   m_Color: {r: 0, g: 1, b: 0.33657384, a: 0.6392157}
   m_FlipX: 0
@@ -1718,6 +1722,7 @@ GameObject:
   - component: {fileID: 619257737}
   - component: {fileID: 619257736}
   - component: {fileID: 619257735}
+  - component: {fileID: 619257740}
   m_Layer: 0
   m_Name: TobiiButtonPause
   m_TagString: Untagged
@@ -1737,11 +1742,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53d94f8af979ad4e91d28c6da497ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 619257740}
   button: {fileID: 2107017769}
   Button: {fileID: 2107017771}
   holdTime: 2
   indicatorAnimation: {fileID: 1546979032}
+  gazeReceiver: {fileID: 0}
+  mainCamera: {fileID: 519420031}
 --- !u!65 &619257736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1827,14 +1834,35 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619257734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 769.03, y: 410.29, z: 1070279.9}
-  m_LocalScale: {x: 151.19984, y: 146.15984, z: 108}
+  m_LocalPosition: {x: 740.8, y: 397.7, z: 1070279.9}
+  m_LocalScale: {x: 277.8, y: 287.5, z: 108}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1546979034}
   m_Father: {fileID: 1893057514}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &619257740
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619257734}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6d5a61902530d9a41af895758c9f18c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &664950513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,6 +2008,7 @@ MonoBehaviour:
   scoreText: {fileID: 1463827545}
   _gazeAware: {fileID: 1857990393}
   stateGame: {fileID: 993063594}
+  mainCamera: {fileID: 519420031}
 --- !u!1 &735805067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,6 +2323,7 @@ MonoBehaviour:
   scoreText: {fileID: 1463827545}
   _gazeAware: {fileID: 323165041}
   stateGame: {fileID: 993063594}
+  mainCamera: {fileID: 519420031}
 --- !u!61 &795792078
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2490,6 +2520,7 @@ Canvas:
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: -1
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2547,6 +2578,8 @@ MonoBehaviour:
   Button: {fileID: 597516905}
   holdTime: 2
   indicatorAnimation: {fileID: 1959915437}
+  gazeReceiver: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!65 &909181248
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2786,8 +2819,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933436974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.000000050862592, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 1.2899998}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 104387414}
@@ -2848,7 +2881,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: c52b9ef39703ebb4ebaf76a9b44fe717, type: 3}
   m_Color: {r: 0, g: 1, b: 0.33657384, a: 0.6392157}
   m_FlipX: 0
@@ -2966,6 +2999,7 @@ MonoBehaviour:
   scoreText: {fileID: 1463827545}
   _gazeAware: {fileID: 617568128}
   stateGame: {fileID: 993063594}
+  mainCamera: {fileID: 519420031}
 --- !u!61 &957409878
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3355,6 +3389,7 @@ MonoBehaviour:
   scoreText: {fileID: 1463827545}
   _gazeAware: {fileID: 787926450}
   stateGame: {fileID: 993063594}
+  mainCamera: {fileID: 519420031}
 --- !u!61 &1078324145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3980,6 +4015,7 @@ MonoBehaviour:
   scoreText: {fileID: 1463827545}
   _gazeAware: {fileID: 143777175}
   stateGame: {fileID: 993063594}
+  mainCamera: {fileID: 519420031}
 --- !u!61 &1321729668
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4213,6 +4249,8 @@ MonoBehaviour:
   Button: {fileID: 1087527200}
   holdTime: 2
   indicatorAnimation: {fileID: 1836610978}
+  gazeReceiver: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!65 &1409202654
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5333,6 +5371,8 @@ MonoBehaviour:
   Button: {fileID: 1854883938}
   holdTime: 2
   indicatorAnimation: {fileID: 477416743}
+  gazeReceiver: {fileID: 0}
+  mainCamera: {fileID: 519420031}
 --- !u!65 &1854883940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5625,6 +5665,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 3
@@ -5811,6 +5852,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -6136,8 +6178,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -190.00446, y: -131.38141}
-  m_SizeDelta: {x: 148.32007, y: 146.60999}
+  m_AnchoredPosition: {x: -215.21002, y: -160.78998}
+  m_SizeDelta: {x: 198.73, y: 205.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2107017771
 MonoBehaviour:
@@ -6352,6 +6394,7 @@ MonoBehaviour:
   scoreText: {fileID: 1463827545}
   _gazeAware: {fileID: 388275338}
   stateGame: {fileID: 993063594}
+  mainCamera: {fileID: 519420031}
 --- !u!61 &2122526811
 BoxCollider2D:
   m_ObjectHideFlags: 0

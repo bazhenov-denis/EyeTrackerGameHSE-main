@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,8 +27,19 @@ public class DifficultyManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void BackButton()
     {
         SceneManager.LoadScene("TrainingMenu");
+    }
+    
+    private void OnEnable()
+    {
+        // Сброс времени и установка состояния игры
+        Time.timeScale = 1f;
     }
 }

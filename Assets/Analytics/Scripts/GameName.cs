@@ -5,7 +5,7 @@ using UnityEngine;
 public enum GameName
 {
     BeatMice,
-    Ñosmonaut,
+    Cosmonaut,
     Memory,
     CatchAllFruits
 }

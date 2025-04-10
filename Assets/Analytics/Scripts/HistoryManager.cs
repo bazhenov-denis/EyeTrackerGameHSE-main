@@ -40,7 +40,7 @@ public class HistoryManager : MonoBehaviour
 
     public void OnCosmonautButtonClick()
     {
-        SessionManager.SelectedGame = GameName.Ñosmonaut;
+        SessionManager.SelectedGame = GameName.Cosmonaut;
         if (SessionManager.Progress)
         {
             SceneManager.LoadScene("ShowProgress");

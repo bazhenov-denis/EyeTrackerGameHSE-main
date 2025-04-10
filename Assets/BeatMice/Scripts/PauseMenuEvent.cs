@@ -27,6 +27,7 @@ public class PauseMenuEvent : MonoBehaviour
     {
         GameObject.Find("MouseHole").GetComponent<MiceController>().ResetScore();
         SceneManager.LoadScene("BeatMiceDifficultyManager");
+        _stateGame.SetState(State.Gameplay);
     }
 
     public static void ResatartLevel()

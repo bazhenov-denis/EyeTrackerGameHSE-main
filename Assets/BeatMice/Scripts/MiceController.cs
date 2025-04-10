@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
-using System.Threading;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
-using Tobii.Gaming;
+using Tobii.Gaming; // Для Windows
 
 public class MiceController : MonoBehaviour
 {
@@ -20,14 +19,19 @@ public class MiceController : MonoBehaviour
     private bool _isHolding;            // Флаг, установленный когда курсор находится в зоне (OnMouseEnter)
 
     private Animator _hammerAnimator;
-
-    [SerializeField] private GazeAware _gazeAware;
+    
+    [SerializeField] private GazeAware _gazeAware; // Используется для Windows
     private static readonly int HitFlag = Animator.StringToHash("HitFlag");
+
     private GameObject _starsNew;
     private SynchronizationContext _mainThreadContext;
+    
     [SerializeField] private StateGame stateGame;
 
-    private void Start()
+    // Добавляем ссылку на основную камеру, необходимую для преобразования координат
+    public Camera mainCamera;
+    
+    void Start()
     {
         _mainThreadContext = SynchronizationContext.Current;
         _hammerAnimator = hammer.GetComponent<Animator>();
@@ -38,14 +42,42 @@ public class MiceController : MonoBehaviour
         if (stateGame.State != State.Gameplay)
             return;
 
-        // Проверяем, есть ли валидный взгляд, или используется мышь (когда _isHolding true)
-        bool useGaze = (_gazeAware != null && _gazeAware.HasGazeFocus);
+        bool useGaze = false;
+        
+        #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            // Для Windows используем TobiiAPI через _gazeAware
+            useGaze = (_gazeAware != null && _gazeAware.HasGazeFocus);
+        #elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+            // Для macOS используем данные из GazeReceiver
+            if (GazeReceiver.Instance != null)
+            {
+                // Получаем нормализованные координаты (0..1) от GazeReceiver
+                Vector2 normCoords = GazeReceiver.Instance.GetGazeCoordinates();
+                // Переводим их в экранные координаты (в пикселях)
+                Vector3 screenGaze = new Vector3(normCoords.x * Screen.width, normCoords.y * Screen.height, mainCamera.nearClipPlane + 5f);
+                // Переводим экранную точку в мировую (мы задаём Z как nearClipPlane + distance, здесь 5f используется как пример)
+                Vector3 worldGaze = mainCamera.ScreenToWorldPoint(screenGaze);
+                // Проверяем, попадает ли мировая точка взгляда в область данного объекта (предполагается, что он имеет Collider2D)
+                Collider2D col = GetComponent<Collider2D>();
+                useGaze = (col != null && col.OverlapPoint(worldGaze));
+            }
+        #else
+            // Для остальных платформ можно задать дефолтное поведение
+            useGaze = false;
+        #endif
+
+        // Если действует мышь (OnMouseEnter) или зафиксирован взгляд
         if (useGaze || _isHolding)
         {
-            // Перемещаем молоток по координатам объекта (здесь можно улучшить позиционирование)
-            Vector2 hammerPosition = GetComponent<Transform>().position;
-            hammerPosition.y += GetComponent<BoxCollider2D>().offset.y;
-            hammerPosition.x += GetComponent<BoxCollider2D>().size.x / 2;
+            // Перемещаем молоток по координатам объекта; здесь можно улучшить позиционирование
+            // Например, получаем позицию объекта плюс смещение из BoxCollider2D
+            Vector2 hammerPosition = transform.position;
+            BoxCollider2D boxCol = GetComponent<BoxCollider2D>();
+            if (boxCol != null)
+            {
+                hammerPosition.y += boxCol.offset.y;
+                hammerPosition.x += boxCol.size.x / 2;
+            }
             hammer.transform.position = hammerPosition;
 
             _holdTimer += Time.deltaTime;
@@ -54,7 +86,7 @@ public class MiceController : MonoBehaviour
                 float reactionTime = 0f;
                 if (mice != null)
                 {
-                    // Получаем компонент CatchObjectItem у текущей мыши
+                    // Получаем компонент CatchItem у текущей мыши
                     CatchItem item = mice.GetComponent<CatchItem>();
                     if (item != null)
                     {
@@ -68,9 +100,8 @@ public class MiceController : MonoBehaviour
                 PlayHammerAnimation();
 
                 float animationLengthHalf = _hammerAnimator.GetCurrentAnimatorStateInfo(0).length / 2;
-                if (!mice.IsUnityNull())
+                if (mice != null)
                 {
-                    // Вызываем удаление мыши через Invoke
                     Invoke("DestroyMice", animationLengthHalf);
                 }
 
@@ -85,22 +116,22 @@ public class MiceController : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // Когда курсор (мышь) входит в зону объекта (например, у норы)
-        hammer.SetActive(true);
-        _isHolding = true;
-        _holdTimer = 0f;
+        // // Когда курсор (мышь) входит в зону объекта (например, у норы)
+        // hammer.SetActive(true);
+        // _isHolding = true;
+        // _holdTimer = 0f;
     }
 
     void OnMouseExit()
     {
-        if (stateGame.State != State.Gameplay)
-            return;
-
-        _hammerAnimator.SetBool(HitFlag, false);
-        _hammerAnimator.Play("DefoltHummer");
-        hammer.SetActive(false);
-        _isHolding = false;
-        ResetHoldTimer();
+        // if (stateGame.State != State.Gameplay)
+        //     return;
+        //
+        // _hammerAnimator.SetBool(HitFlag, false);
+        // _hammerAnimator.Play("DefoltHummer");
+        // hammer.SetActive(false);
+        // _isHolding = false;
+        // ResetHoldTimer();
     }
 
     void ResetHoldTimer()
@@ -141,7 +172,7 @@ public class MiceController : MonoBehaviour
     {
         var starsPos = mice.transform.position;
         starsPos.y += 1.3f;
-        if (_starsNew.IsUnityNull())
+        if (_starsNew == null)
         {
             _starsNew = Instantiate(stars, starsPos, Quaternion.identity);
             UpdateScore();

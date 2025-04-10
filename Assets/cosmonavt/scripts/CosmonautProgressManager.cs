@@ -5,7 +5,7 @@ public class CosmonautProgressManager : MonoBehaviour
 {
     private float startTime;
 
-    // Список для сохранения времени реакции.
+    
     private static List<float> reactionTimes = new List<float>();
 
     void Start()
@@ -17,7 +17,7 @@ public class CosmonautProgressManager : MonoBehaviour
     public static void RecordReactionTime(float time)
     {
         reactionTimes.Add(time);
-        Debug.Log("Время реакции: " + time.ToString("F2") + " sec");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + time.ToString("F2") + " sec");
     }
 
     public static float GetAverageReactionTime()
@@ -30,35 +30,31 @@ public class CosmonautProgressManager : MonoBehaviour
         return sum / reactionTimes.Count;
     }
 
-    /// <summary>
-    /// Вызывается при победе – когда счет достигает WinCount
-    /// </summary>
+    
     public void OnGameWin()
     {
         float timeTaken = Time.time - startTime;
-        int score = EnemyBehaviour.counter; // Количество "считанных" врагов.
+        int score = EnemyBehaviour.counter; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅпїЅпїЅ.
         bool victory = true;
-        double completionPercentage = 100; // Игра полностью выполнена.
+        double completionPercentage = 100; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
         int performanceRating = 5;
         int difficulty = DifficultyLevelMenuManager.difficult;
 
         float avarageReaction = GetAverageReactionTime();
-        // Сохраняем историю для игры "Космонавт"
-        LocalDatabase.Instance.AddGameHistory(SessionManager.UserID, GameName.Сosmonaut, score, difficulty, victory,
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
+        LocalDatabase.Instance.AddGameHistory(SessionManager.UserID, GameName.Cosmonaut, score, difficulty, victory,
                                                 timeTaken, completionPercentage, 0, performanceRating, avarageReaction);
 
-        Debug.Log($"Время прохождения: {timeTaken}");
-        Debug.Log($"Счет: {score}");
-        Debug.Log($"Количество ошибок: {0}");
-        Debug.Log($"Текущий уровень: {difficulty}");
-        Debug.Log($"Точность выполнения: {completionPercentage}");
-        Debug.Log($"Рейтинг: {performanceRating}");
-        Debug.Log($"Среднее время реакции: {avarageReaction}");
+        Debug.Log($"Р’СЂРµРјРµРЅРё РїРѕС‚СЂРµР±РѕРІР°Р»РѕСЃР±: {timeTaken}");
+        Debug.Log($"РЎС‡С‘С‚: {score}");
+        // Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: {0}");
+        Debug.Log($"РЎР»РѕР¶РЅРѕСЃС‚СЊ: {difficulty}");
+        Debug.Log($"РџСЂРѕС†РµРЅС‚ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ: {completionPercentage}");
+        // Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {performanceRating}");
+        Debug.Log($"РЎСЂРµРґРЅРµРµ РІСЂРµРјСЏ СЂРµР°РєС†РёРё: {avarageReaction}");
     }
 
-    /// <summary>
-    /// Вызывается при поражении (например, при столкновении)
-    /// </summary>
+    
     public void OnGameLose()
     {
         float timeTaken = Time.time - startTime;
@@ -91,16 +87,16 @@ public class CosmonautProgressManager : MonoBehaviour
         else if (performanceRating > 5)
             performanceRating = 5;
         float avarageReaction = GetAverageReactionTime();
-        LocalDatabase.Instance.AddGameHistory(SessionManager.UserID, GameName.Сosmonaut, score, difficulty, victory,
+        LocalDatabase.Instance.AddGameHistory(SessionManager.UserID, GameName.Cosmonaut, score, difficulty, victory,
                                                 timeTaken, completionPercentage, 0, performanceRating, avarageReaction);
 
 
-        Debug.Log($"Время прохождения: {timeTaken}");
-        Debug.Log($"Счет: {score}");
-        Debug.Log($"Количество ошибок: {0}");
-        Debug.Log($"Текущий уровень: {difficulty}");
-        Debug.Log($"Точность выполнения: {completionPercentage}");
-        Debug.Log($"Рейтинг: {performanceRating}");
-        Debug.Log($"Среднее время реакции: {avarageReaction}");
+        Debug.Log($"Р’СЂРµРјРµРЅРё РїРѕС‚СЂРµР±РѕРІР°Р»РѕСЃР±: {timeTaken}");
+        Debug.Log($"РЎС‡С‘С‚: {score}");
+        // Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: {0}");
+        Debug.Log($"РЎР»РѕР¶РЅРѕСЃС‚СЊ: {difficulty}");
+        Debug.Log($"РџСЂРѕС†РµРЅС‚ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ: {completionPercentage}");
+        // Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {performanceRating}");
+        Debug.Log($"РЎСЂРµРґРЅРµРµ РІСЂРµРјСЏ СЂРµР°РєС†РёРё: {avarageReaction}");
     }
 }

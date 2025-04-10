@@ -350,9 +350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ecf175b6d854c9090794828196d9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenPosition: {x: 0, y: 0, z: 0}
-  Backet: {fileID: 293462331}
-  worldPosition: {x: 0, y: 0}
+  basket: {fileID: 293462331}
+  mainCamera: {fileID: 1998734371}
+  distanceFromCamera: 5
 --- !u!114 &293462336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,6 +950,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

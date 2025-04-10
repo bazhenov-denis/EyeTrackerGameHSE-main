@@ -48,7 +48,7 @@ public class ScoreController : MonoBehaviour
             score -= 1;
             Destroy(target.gameObject);
 
-            // Регистрируем ошибку при столкновении с врагом
+            // ???????????? ?????? ??? ???????????? ? ??????
             CatchObjectProgressManager progressManager = FindObjectOfType<CatchObjectProgressManager>();
             if (progressManager != null)
             {
@@ -65,7 +65,7 @@ public class ScoreController : MonoBehaviour
         {
             Destroy(target.gameObject);
 
-            // Регистрируем ошибку при столкновении с врагом
+            // ???????????? ?????? ??? ???????????? ? ??????
             CatchObjectProgressManager progressManager = FindObjectOfType<CatchObjectProgressManager>();
             if (progressManager != null)
             {
