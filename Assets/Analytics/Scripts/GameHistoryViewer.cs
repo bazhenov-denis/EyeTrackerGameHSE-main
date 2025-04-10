@@ -133,7 +133,7 @@ public class GameHistoryViewer : MonoBehaviour
         // Если мы на последнем элементе, кнопку "следующая" скрываем.
         nextButton.gameObject.SetActive(_currentIndex < _historyList.Count - 1);
     }
-
+    
     public void BackToHistoryMenu()
     {
         SceneManager.LoadScene("HistoryMenu");

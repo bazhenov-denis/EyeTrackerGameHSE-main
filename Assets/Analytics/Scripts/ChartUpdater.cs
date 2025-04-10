@@ -13,9 +13,9 @@ public class ChartUpdater : MonoBehaviour
     [SerializeField] private LineChart lineChart;
     [SerializeField] private TextMeshProUGUI userName;
 
-    // Список значений для выбранного параметра.
+    // РЎРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ РґР»СЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РїР°СЂР°РјРµС‚СЂР°.
     private List<float> paramValues;
-    // Метки оси X (даты).
+    // РњРµС‚РєРё РѕСЃРё X (РґР°С‚С‹).
     private List<string> dateLabels;
 
     void Start()
@@ -37,16 +37,16 @@ public class ChartUpdater : MonoBehaviour
             return;
         }
 
-        // Сортируем записи по дате в порядке возрастания.
+        // РЎРѕСЂС‚РёСЂСѓРµРј Р·Р°РїРёСЃРё РїРѕ РґР°С‚Рµ РІ РїРѕСЂСЏРґРєРµ РІРѕР·СЂР°СЃС‚Р°РЅРёСЏ.
         records = records.OrderBy(r => r.DatePlayed).ToList();
 
-        // Формируем список дат.
+        // Р¤РѕСЂРјРёСЂСѓРµРј СЃРїРёСЃРѕРє РґР°С‚.
         dateLabels = records.Select(r => r.DatePlayed.ToString("dd.MM.yyyy HH:mm")).ToList();
 
-        // Определяем, какой параметр выбрал пользователь.
+        // РћРїСЂРµРґРµР»СЏРµРј, РєР°РєРѕР№ РїР°СЂР°РјРµС‚СЂ РІС‹Р±СЂР°Р» РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ.
         MetricName selectedParam = SessionManager.MetricName;
 
-        // Преобразуем записи в список float, в зависимости от выбранного параметра.
+        // РџСЂРµРѕР±СЂР°Р·СѓРµРј Р·Р°РїРёСЃРё РІ СЃРїРёСЃРѕРє float, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РїР°СЂР°РјРµС‚СЂР°.
         switch (selectedParam)
         {
             case MetricName.AverageReactionTime:
@@ -74,10 +74,10 @@ public class ChartUpdater : MonoBehaviour
 
     public void UpdateChart()
     {
-        // Очищаем все данные графика.
+        // РћС‡РёС‰Р°РµРј РІСЃРµ РґР°РЅРЅС‹Рµ РіСЂР°С„РёРєР°.
         lineChart.ClearData();
 
-        // Получаем (или создаём) XAxis.
+        // РџРѕР»СѓС‡Р°РµРј (РёР»Рё СЃРѕР·РґР°С‘Рј) XAxis.
         var xAxis = lineChart.GetChartComponent<XAxis>(0);
         if (xAxis != null)
         {
@@ -87,35 +87,35 @@ public class ChartUpdater : MonoBehaviour
         }
 
         MetricName selectedParam = SessionManager.MetricName;
-        string paramName = "Неизвестно";
+        string paramName = "РќРµРёР·РІРµСЃС‚РЅРѕ";
 
         switch (selectedParam)
         {
             case MetricName.AverageReactionTime:
-                paramName = "Среднее время реакции";
+                paramName = "РЎСЂРµРґРЅРµРµ РІСЂРµРјСЏ СЂРµР°РєС†РёРё";
                 break;
             case MetricName.TimeTaken:
-                paramName = "Время прохождения";
+                paramName = "Р’СЂРµРјСЏ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ";
                 break;
             case MetricName.CompletionPercentage:
-                paramName = "Точность выполнения";
+                paramName = "РўРѕС‡РЅРѕСЃС‚СЊ РІС‹РїРѕР»РЅРµРЅРёСЏ";
                 break;
             case MetricName.ErrorCount:
-                paramName = "Количество ошибок";
+                paramName = "РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС€РёР±РѕРє";
                 break;
             case MetricName.PerformanceRating:
-                paramName = "Оценка выполнения";
+                paramName = "РћС†РµРЅРєР° РІС‹РїРѕР»РЅРµРЅРёСЏ";
                 break;
         }
 
-        // Получаем компонент Title графика.
+        // РџРѕР»СѓС‡Р°РµРј РєРѕРјРїРѕРЅРµРЅС‚ Title РіСЂР°С„РёРєР°.
         var title = lineChart.GetChartComponent<Title>();
         if (title != null)
         {
             title.text = paramName;
         }
 
-        // Добавляем данные в серию 0.
+        // Р”РѕР±Р°РІР»СЏРµРј РґР°РЅРЅС‹Рµ РІ СЃРµСЂРёСЋ 0.
         for (int i = 0; i < paramValues.Count; i++)
         {
             lineChart.AddData(0, paramValues[i]);

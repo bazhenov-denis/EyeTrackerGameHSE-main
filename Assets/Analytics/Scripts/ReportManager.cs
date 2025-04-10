@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -21,7 +20,7 @@ public class ReportManager : MonoBehaviour
     {
         string userName = SessionManager.LoggedInUsername;
 
-        // Чтобы избежать проблем с недопустимыми символами, уберём их из имени пользователя
+        // Р§С‚РѕР±С‹ РёР·Р±РµР¶Р°С‚СЊ РїСЂРѕР±Р»РµРј СЃ РЅРµРґРѕРїСѓСЃС‚РёРјС‹РјРё СЃРёРјРІРѕР»Р°РјРё, СѓР±РµСЂС‘Рј РёС… РёР· РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         foreach (char c in System.IO.Path.GetInvalidFileNameChars())
         {
             userName = userName.Replace(c.ToString(), "_");
@@ -33,31 +32,31 @@ public class ReportManager : MonoBehaviour
 
         if (records == null || records.Count == 0)
         {
-            Debug.Log("Нет записей для экспорта!");
+            Debug.Log("РќРµС‚ Р·Р°РїРёСЃРµР№ РґР»СЏ СЌРєСЃРїРѕСЂС‚Р°!");
             return;
         }
 
-        // Собираем CSV-строку
+        // РЎРѕР±РёСЂР°РµРј CSV-СЃС‚СЂРѕРєСѓ
         string csv = BuildCsv(records);
 
-        // 1. Путь к папке, в которой лежит Assets (одним уровнем выше, чем Assets)
+        // 1. РџСѓС‚СЊ Рє РїР°РїРєРµ, РІ РєРѕС‚РѕСЂРѕР№ Р»РµР¶РёС‚ Assets (РѕРґРЅРёРј СѓСЂРѕРІРЅРµРј РІС‹С€Рµ, С‡РµРј Assets)
         string projectFolder = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
         string targetFolder = Path.Combine(projectFolder, "CsvDataExport");
         string path = Path.Combine(targetFolder, finalFileName);
 
-        // Записываем CSV в файл
+        // Р—Р°РїРёСЃС‹РІР°РµРј CSV РІ С„Р°Р№Р»
         File.WriteAllText(path, csv, Encoding.UTF8);
 
-        Debug.Log("Все данные сохранены в CSV-файл: " + path);
+        Debug.Log("Р’СЃРµ РґР°РЅРЅС‹Рµ СЃРѕС…СЂР°РЅРµРЅС‹ РІ CSV-С„Р°Р№Р»: " + path);
     }
 
     private string BuildCsv(List<GameHistory> records)
     {
-        // Заголовки колонок.
+        // Р—Р°РіРѕР»РѕРІРєРё РєРѕР»РѕРЅРѕРє.
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("Game;DatePlayed;Score;DifficultyLevel;Victory;TimeTaken;CompletionPercentage;ErrorCount;PerformanceRating;AverageReactionTime");
 
-        // Формируем строку для каждой записи.
+        // Р¤РѕСЂРјРёСЂСѓРµРј СЃС‚СЂРѕРєСѓ РґР»СЏ РєР°Р¶РґРѕР№ Р·Р°РїРёСЃРё.
         foreach (var rec in records)
         {
             sb.AppendLine($"{rec.Game};{rec.DatePlayed:yyyy-MM-dd HH:mm:ss};{rec.Score};{rec.DifficultyLevel};{rec.Victory};{rec.TimeTaken:F2};{rec.CompletionPercentage:F2};{rec.ErrorCount};{rec.PerformanceRating:F2};{rec.AverageReactionTime:F2}");

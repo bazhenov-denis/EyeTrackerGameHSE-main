@@ -1,16 +1,16 @@
 using System.Collections;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class ChartExporter : MonoBehaviour
 {
     [SerializeField] private RectTransform chartRect;
 
-    // Имя файла для сохранения.
-    public string fileNameFormat = "Сhart_{USERNAME}_{GAME}_{PARAM}.png";
+    // РРјСЏ С„Р°Р№Р»Р° РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ.
+    public string fileNameFormat = "РЎhart_{USERNAME}_{GAME}_{PARAM}.png";
 
-    // Метод для кнопки скачивания.
+    // РњРµС‚РѕРґ РґР»СЏ РєРЅРѕРїРєРё СЃРєР°С‡РёРІР°РЅРёСЏ.
     public void ExportChart()
     {
         StartCoroutine(ExportCoroutine());
@@ -18,34 +18,34 @@ public class ChartExporter : MonoBehaviour
 
     private IEnumerator ExportCoroutine()
     {
-        // Ждем окончания кадра, чтобы захватить актуальное изображение.
+        // Р–РґРµРј РѕРєРѕРЅС‡Р°РЅРёСЏ РєР°РґСЂР°, С‡С‚РѕР±С‹ Р·Р°С…РІР°С‚РёС‚СЊ Р°РєС‚СѓР°Р»СЊРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ.
         yield return new WaitForEndOfFrame();
 
-        // Получаем углы RectTransform в мировых координатах.
+        // РџРѕР»СѓС‡Р°РµРј СѓРіР»С‹ RectTransform РІ РјРёСЂРѕРІС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С….
         Vector3[] corners = new Vector3[4];
         chartRect.GetWorldCorners(corners);
-        // Нижний левый угол и верхний правый.
+        // РќРёР¶РЅРёР№ Р»РµРІС‹Р№ СѓРіРѕР» Рё РІРµСЂС…РЅРёР№ РїСЂР°РІС‹Р№.
         Vector2 bottomLeft = RectTransformUtility.WorldToScreenPoint(null, corners[0]);
         Vector2 topRight = RectTransformUtility.WorldToScreenPoint(null, corners[2]);
 
         int width = (int)(topRight.x - bottomLeft.x);
         int height = (int)(topRight.y - bottomLeft.y);
 
-        // Создаем текстуру нужного размера.
+        // РЎРѕР·РґР°РµРј С‚РµРєСЃС‚СѓСЂСѓ РЅСѓР¶РЅРѕРіРѕ СЂР°Р·РјРµСЂР°.
         Texture2D texture = new Texture2D(width, height, TextureFormat.RGB24, false);
-        // Читаем пиксели из экрана в заданном прямоугольнике.
+        // Р§РёС‚Р°РµРј РїРёРєСЃРµР»Рё РёР· СЌРєСЂР°РЅР° РІ Р·Р°РґР°РЅРЅРѕРј РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєРµ.
         texture.ReadPixels(new Rect(bottomLeft.x, bottomLeft.y, width, height), 0, 0);
         texture.Apply();
 
-        // Кодируем текстуру в PNG.
+        // РљРѕРґРёСЂСѓРµРј С‚РµРєСЃС‚СѓСЂСѓ РІ PNG.
         byte[] pngData = texture.EncodeToPNG();
 
-        // Генерируем имя файла с использованием имени пользователя и названия игры.
+        // Р“РµРЅРµСЂРёСЂСѓРµРј РёРјСЏ С„Р°Р№Р»Р° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РЅР°Р·РІР°РЅРёСЏ РёРіСЂС‹.
         string userName = SessionManager.LoggedInUsername;
         string gameName = SessionManager.SelectedGame.ToString();
         string metric = SessionManager.MetricName.ToString();
         Debug.Log($"{metric}");
-        // Удаляем недопустимые символы из имени и названия.
+        // РЈРґР°Р»СЏРµРј РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹ РёР· РёРјРµРЅРё Рё РЅР°Р·РІР°РЅРёСЏ.
         foreach (char c in Path.GetInvalidFileNameChars())
         {
             userName = userName.Replace(c.ToString(), "_");
@@ -58,12 +58,12 @@ public class ChartExporter : MonoBehaviour
             .Replace("{GAME}", gameName)
             .Replace("{PARAM}", metric);
 
-        // 1. Путь к папке, в которой лежит Assets (одним уровнем выше, чем Assets).
+        // 1. РџСѓС‚СЊ Рє РїР°РїРєРµ, РІ РєРѕС‚РѕСЂРѕР№ Р»РµР¶РёС‚ Assets (РѕРґРЅРёРј СѓСЂРѕРІРЅРµРј РІС‹С€Рµ, С‡РµРј Assets).
         string projectFolder = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
-        // 2. Путь к папке "Charts" (на том же уровне, что и Assets).
+        // 2. РџСѓС‚СЊ Рє РїР°РїРєРµ "Charts" (РЅР° С‚РѕРј Р¶Рµ СѓСЂРѕРІРЅРµ, С‡С‚Рѕ Рё Assets).
         string targetFolder = Path.Combine(projectFolder, "Charts");
         string path = Path.Combine(targetFolder, finalFileName);
         File.WriteAllBytes(path, pngData);
-        Debug.Log("График сохранен: " + path);
+        Debug.Log("Р“СЂР°С„РёРє СЃРѕС…СЂР°РЅРµРЅ: " + path);
     }
 }

@@ -3,15 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class LogoutButton : MonoBehaviour
 {
-    public void OnLogoutButtonClick()
+  public void OnLogoutButtonClick()
+  {
+    if (SessionManager.LogIn)
     {
-        if (SessionManager.LogIn)
-        {
-            SessionManager.LogOut();
+      SessionManager.LogOut();
 
-            Debug.Log("Пользователь вышел из профиля");
+      Debug.Log("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІС‹С€РµР» РёР· РїСЂРѕС„РёР»СЏ");
 
-            SceneManager.LoadScene("ProfileScene");
-        }
+      SceneManager.LoadScene("ProfileScene");
     }
+  }
 }

@@ -1,16 +1,16 @@
 using UnityEngine;
-using UnityEngine.UI;      // для Button
-using TMPro;               // для TextMeshProUGUI
+using UnityEngine.UI;      // РґР»СЏ Button
+using TMPro;               // РґР»СЏ TextMeshProUGUI
 
 public class DisplayLoginInButton : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI userName;
+  [SerializeField] private TextMeshProUGUI userName;
 
-    void Start()
-    {
-        if (SessionManager.LogIn)
-            userName.text = SessionManager.LoggedInUsername;
-        else
-            userName.text = "Имя";
-    }
+  void Start()
+  {
+    if (SessionManager.LogIn)
+      userName.text = SessionManager.LoggedInUsername;
+    else
+      userName.text = "РРјСЏ";
+  }
 }

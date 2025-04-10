@@ -3,19 +3,19 @@ using TMPro;
 
 public class DisplayLoginStatus : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI statusText;
+  [SerializeField] private TextMeshProUGUI statusText;
 
-    void Start()
+  void Start()
+  {
+    if (SessionManager.LogIn)
     {
-        if (SessionManager.LogIn)
-        {
-            statusText.text = "Вход выполнен!";
-            statusText.color = new Color(0f, 0.5f, 0f, 1f);
-        }
-        else
-        {
-            statusText.text = "Вход не выполнен!";
-            statusText.color = Color.red;
-        }
+      statusText.text = "Р’С…РѕРґ РІС‹РїРѕР»РЅРµРЅ!";
+      statusText.color = new Color(0f, 0.5f, 0f, 1f);
     }
+    else
+    {
+      statusText.text = "Р’С…РѕРґ РЅРµ РІС‹РїРѕР»РЅРµРЅ!";
+      statusText.color = Color.red;
+    }
+  }
 }

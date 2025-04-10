@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,56 +11,56 @@ public class ReportGenerator : MonoBehaviour
     public void GenerateAnalysisReport()
     {
         string userName = SessionManager.LoggedInUsername;
-        // Удаляем недопустимые символы из имени пользователя
+        // РЈРґР°Р»СЏРµРј РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹ РёР· РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         foreach (char c in Path.GetInvalidFileNameChars())
         {
             userName = userName.Replace(c.ToString(), "_");
         }
         string finalFileName = fileNameFormat.Replace("{USERNAME}", userName);
 
-        // Получаем все записи для данного пользователя (по всем играм).
+        // РџРѕР»СѓС‡Р°РµРј РІСЃРµ Р·Р°РїРёСЃРё РґР»СЏ РґР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ (РїРѕ РІСЃРµРј РёРіСЂР°Рј).
         List<GameHistory> records = LocalDatabase.Instance.GetAllHistoryForUser(SessionManager.UserID);
         if (records == null || records.Count == 0)
         {
-            Debug.Log("Нет записей для анализа!");
+            Debug.Log("РќРµС‚ Р·Р°РїРёСЃРµР№ РґР»СЏ Р°РЅР°Р»РёР·Р°!");
             return;
         }
 
-        // Группируем записи по типу игры.
+        // Р“СЂСѓРїРїРёСЂСѓРµРј Р·Р°РїРёСЃРё РїРѕ С‚РёРїСѓ РёРіСЂС‹.
         var groups = records.GroupBy(r => r.Game);
 
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Отчет по прохождениям (последние 5 записей для каждой игры):");
+        sb.AppendLine("РћС‚С‡РµС‚ РїРѕ РїСЂРѕС…РѕР¶РґРµРЅРёСЏРј (РїРѕСЃР»РµРґРЅРёРµ 5 Р·Р°РїРёСЃРµР№ РґР»СЏ РєР°Р¶РґРѕР№ РёРіСЂС‹):");
         sb.AppendLine();
 
         foreach (var group in groups)
         {
-            // Получаем последние 5 записей по данной игре (если записей меньше — берем все).
+            // РџРѕР»СѓС‡Р°РµРј РїРѕСЃР»РµРґРЅРёРµ 5 Р·Р°РїРёСЃРµР№ РїРѕ РґР°РЅРЅРѕР№ РёРіСЂРµ (РµСЃР»Рё Р·Р°РїРёСЃРµР№ РјРµРЅСЊС€Рµ вЂ” Р±РµСЂРµРј РІСЃРµ).
             List<GameHistory> lastFive = group.OrderBy(r => r.DatePlayed).TakeLast(5).ToList();
             if (lastFive.Count == 0)
                 continue;
 
-            // Вычисляем агрегированные показатели.
+            // Р’С‹С‡РёСЃР»СЏРµРј Р°РіСЂРµРіРёСЂРѕРІР°РЅРЅС‹Рµ РїРѕРєР°Р·Р°С‚РµР»Рё.
             float avgReaction = lastFive.Average(r => (float)r.AverageReactionTime);
             float minReaction = lastFive.Min(r => (float)r.AverageReactionTime);
             float avgCompletion = lastFive.Average(r => (float)r.CompletionPercentage);
             float avgPerformance = lastFive.Average(r => (float)r.PerformanceRating);
 
-            // Определяем, ухудшилось ли время реакции более чем на 30%.
+            // РћРїСЂРµРґРµР»СЏРµРј, СѓС…СѓРґС€РёР»РѕСЃСЊ Р»Рё РІСЂРµРјСЏ СЂРµР°РєС†РёРё Р±РѕР»РµРµ С‡РµРј РЅР° 30%.
             bool reactionOk = avgReaction <= minReaction * 1.3f;
 
             string recommendation = "";
             if (reactionOk && avgCompletion >= 85f && avgPerformance >= 4f)
             {
-                recommendation = "Игрок хорошо справляется с текущей нагрузкой, можно увеличивать сложность";
+                recommendation = "РРіСЂРѕРє С…РѕСЂРѕС€Рѕ СЃРїСЂР°РІР»СЏРµС‚СЃСЏ СЃ С‚РµРєСѓС‰РµР№ РЅР°РіСЂСѓР·РєРѕР№, РјРѕР¶РЅРѕ СѓРІРµР»РёС‡РёРІР°С‚СЊ СЃР»РѕР¶РЅРѕСЃС‚СЊ";
             }
             else if (!reactionOk || avgPerformance < 3f || avgCompletion < 40f)
             {
-                recommendation = "Игрок плохо справляется, стоит уменьшить сложность";
+                recommendation = "РРіСЂРѕРє РїР»РѕС…Рѕ СЃРїСЂР°РІР»СЏРµС‚СЃСЏ, СЃС‚РѕРёС‚ СѓРјРµРЅСЊС€РёС‚СЊ СЃР»РѕР¶РЅРѕСЃС‚СЊ";
             }
             else
             {
-                recommendation = "Нагрузка для игрока умеренная, стоит остаться на текущей сложности";
+                recommendation = "РќР°РіСЂСѓР·РєР° РґР»СЏ РёРіСЂРѕРєР° СѓРјРµСЂРµРЅРЅР°СЏ, СЃС‚РѕРёС‚ РѕСЃС‚Р°С‚СЊСЃСЏ РЅР° С‚РµРєСѓС‰РµР№ СЃР»РѕР¶РЅРѕСЃС‚Рё";
             }
 
             sb.AppendLine($"{group.Key}: {recommendation}");
@@ -69,13 +68,13 @@ public class ReportGenerator : MonoBehaviour
 
         string reportText = sb.ToString();
 
-        // 1. Путь к папке, в которой лежит Assets (одним уровнем выше, чем Assets).
+        // 1. РџСѓС‚СЊ Рє РїР°РїРєРµ, РІ РєРѕС‚РѕСЂРѕР№ Р»РµР¶РёС‚ Assets (РѕРґРЅРёРј СѓСЂРѕРІРЅРµРј РІС‹С€Рµ, С‡РµРј Assets).
         string projectFolder = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
         string targetFolder = Path.Combine(projectFolder, "Reports");
         string path = Path.Combine(targetFolder, finalFileName);
 
         File.WriteAllText(path, reportText, Encoding.UTF8);
 
-        Debug.Log("Отчет анализа сохранен по пути: " + path);
+        Debug.Log("РћС‚С‡РµС‚ Р°РЅР°Р»РёР·Р° СЃРѕС…СЂР°РЅРµРЅ РїРѕ РїСѓС‚Рё: " + path);
     }
 }

@@ -17,7 +17,7 @@ public class ProgressViewer : MonoBehaviour
   [SerializeField] private TextMeshProUGUI ratingText;
   [SerializeField] private TextMeshProUGUI userName;
 
-  // пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ".
+  // Кнопки "предыдущая" и "следующая".
   [SerializeField] private Button prevButton;
   [SerializeField] private Button nextButton;
 
@@ -26,7 +26,7 @@ public class ProgressViewer : MonoBehaviour
 
   void Start()
   {
-    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ.
+    // Подгружаем записи из базы.
     var selectedGame = SessionManager.SelectedGame;
     int userId = SessionManager.UserID;
 
@@ -38,11 +38,11 @@ public class ProgressViewer : MonoBehaviour
       return;
     }
 
-    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+    // Показываем первую запись.
     _currentIndex = 0;
     ShowRecord(_historyList[_currentIndex]);
 
-    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+    // Подписываемся на события кнопок.
     prevButton.onClick.AddListener(OnPrevClicked);
     nextButton.onClick.AddListener(OnNextClicked);
 
@@ -54,16 +54,16 @@ public class ProgressViewer : MonoBehaviour
     switch (record.Game)
     {
       case GameName.BeatMice:
-        gameNameText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Бей мышей";
         break;
       case GameName.Cosmonaut:
-        gameNameText.text = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Космонавт";
         break;
       case GameName.Memory:
-        gameNameText.text = "пїЅпїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Память";
         break;
       case GameName.CatchAllFruits:
-        gameNameText.text = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Собери все фрукты";
         break;
     }
 
@@ -89,29 +89,29 @@ public class ProgressViewer : MonoBehaviour
     switch (selectedGame)
     {
       case GameName.BeatMice:
-        gameNameText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Бей мышей";
         break;
       case GameName.Cosmonaut:
-        gameNameText.text = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Космонавт";
         break;
       case GameName.Memory:
-        gameNameText.text = "пїЅпїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Память";
         break;
       case GameName.CatchAllFruits:
-        gameNameText.text = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
+        gameNameText.text = "Собери все фрукты";
         break;
     }
 
-    dateText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
-    scoreText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
-    difficultyText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
-    difficultyText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+    dateText.text = "Нет записей";
+    scoreText.text = "Нет записей";
+    difficultyText.text = "Нет записей";
+    difficultyText.text = "Нет записей";
 
-    timeText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+    timeText.text = "Нет записей";
 
-    mistakesText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
-    accuracyText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
-    ratingText.text = "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+    mistakesText.text = "Нет записей";
+    accuracyText.text = "Нет записей";
+    ratingText.text = "Нет записей";
 
     userName.text = SessionManager.LoggedInUsername;
 
@@ -128,7 +128,7 @@ public class ProgressViewer : MonoBehaviour
       UpdateButtonStates();
     }
   }
-
+  
   void OnNextClicked()
   {
     if (_currentIndex < _historyList.Count - 1)
@@ -140,14 +140,14 @@ public class ProgressViewer : MonoBehaviour
   }
 
   /// <summary>
-  /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ _currentIndex.
+  /// Скрывает/показывает кнопки "предыдущая" и "следующая" в зависимости от _currentIndex.
   /// </summary>
   private void UpdateButtonStates()
   {
-    // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+    // Если мы на первом элементе, кнопку "предыдущая" скрываем.
     prevButton.gameObject.SetActive(_currentIndex > 0);
 
-    // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+    // Если мы на последнем элементе, кнопку "следующая" скрываем.
     nextButton.gameObject.SetActive(_currentIndex < _historyList.Count - 1);
   }
 

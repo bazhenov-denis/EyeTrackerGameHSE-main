@@ -15,7 +15,7 @@ public class LocalDatabase : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Сохраняем объект при загрузке новой сцены.
+            DontDestroyOnLoad(gameObject); // РЎРѕС…СЂР°РЅСЏРµРј РѕР±СЉРµРєС‚ РїСЂРё Р·Р°РіСЂСѓР·РєРµ РЅРѕРІРѕР№ СЃС†РµРЅС‹.
         }
         else
         {
@@ -23,30 +23,30 @@ public class LocalDatabase : MonoBehaviour
             return;
         }
 
-        // 1. Путь к папке, в которой лежит Assets (одним уровнем выше, чем Assets).
+        // 1. РџСѓС‚СЊ Рє РїР°РїРєРµ, РІ РєРѕС‚РѕСЂРѕР№ Р»РµР¶РёС‚ Assets (РѕРґРЅРёРј СѓСЂРѕРІРЅРµРј РІС‹С€Рµ, С‡РµРј Assets).
         string projectFolder = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
 
-        // 2. Путь к папке "SqLiteData" (на том же уровне, что и Assets).
+        // 2. РџСѓС‚СЊ Рє РїР°РїРєРµ "SqLiteData" (РЅР° С‚РѕРј Р¶Рµ СѓСЂРѕРІРЅРµ, С‡С‚Рѕ Рё Assets).
         string targetFolder = Path.Combine(projectFolder, "SqLiteData");
 
-        // На всякий случай создадим папку, если её нет.
+        // РќР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№ СЃРѕР·РґР°РґРёРј РїР°РїРєСѓ, РµСЃР»Рё РµС‘ РЅРµС‚.
         if (!Directory.Exists(targetFolder))
         {
             Directory.CreateDirectory(targetFolder);
         }
 
-        // 3. Путь к файлу.
+        // 3. РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ.
         string dbPath = Path.Combine(targetFolder, "mydatabase.db");
-        Debug.Log("Путь к файлу с базой данных: " + dbPath);
-        // Создаём (или открываем) БД с флагами чтения/записи и создания, если файла нет.
+        Debug.Log("РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…: " + dbPath);
+        // РЎРѕР·РґР°С‘Рј (РёР»Рё РѕС‚РєСЂС‹РІР°РµРј) Р‘Р” СЃ С„Р»Р°РіР°РјРё С‡С‚РµРЅРёСЏ/Р·Р°РїРёСЃРё Рё СЃРѕР·РґР°РЅРёСЏ, РµСЃР»Рё С„Р°Р№Р»Р° РЅРµС‚.
         db = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-        // Создаём таблицу "users", если она не существует.
-        Debug.Log($"Открыта или создана бд!");
+        // РЎРѕР·РґР°С‘Рј С‚Р°Р±Р»РёС†Сѓ "users", РµСЃР»Рё РѕРЅР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.
+        Debug.Log($"РћС‚РєСЂС‹С‚Р° РёР»Рё СЃРѕР·РґР°РЅР° Р±Рґ!");
         CreateDB();
     }
 
     /// <summary>
-    /// Создаёт (или открывает) таблицу "users", если она не существует.
+    /// РЎРѕР·РґР°С‘С‚ (РёР»Рё РѕС‚РєСЂС‹РІР°РµС‚) С‚Р°Р±Р»РёС†Сѓ "users", РµСЃР»Рё РѕРЅР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.
     /// </summary>
     private void CreateDB()
     {
@@ -55,21 +55,21 @@ public class LocalDatabase : MonoBehaviour
     }
 
     /// <summary>
-    /// Регистрирует нового пользователя (сохраняет в таблицу).
-    /// Возвращает true, если регистрация успешна, false — если пользователь уже существует.
+    /// Р РµРіРёСЃС‚СЂРёСЂСѓРµС‚ РЅРѕРІРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ (СЃРѕС…СЂР°РЅСЏРµС‚ РІ С‚Р°Р±Р»РёС†Сѓ).
+    /// Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё СЂРµРіРёСЃС‚СЂР°С†РёСЏ СѓСЃРїРµС€РЅР°, false вЂ” РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.
     /// </summary>
     public bool RegisterUser(string username, string password)
     {
-        // Проверяем, есть ли уже пользователь с таким именем.
+        // РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё СѓР¶Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј.
         if (IsUserExists(username))
         {
-            Debug.LogWarning("Пользователь с таким именем уже существует!");
+            Debug.LogWarning("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!");
             return false;
         }
 
-        // Генерируем соль для данного пользователя.
+        // Р“РµРЅРµСЂРёСЂСѓРµРј СЃРѕР»СЊ РґР»СЏ РґР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
         string salt = PasswordHasher.GenerateSalt();
-        // Вычисляем хэш пароля с солью.
+        // Р’С‹С‡РёСЃР»СЏРµРј С…СЌС€ РїР°СЂРѕР»СЏ СЃ СЃРѕР»СЊСЋ.
         string passwordHash = PasswordHasher.ComputeHash(password, salt);
 
         User newUser = new User
@@ -83,47 +83,47 @@ public class LocalDatabase : MonoBehaviour
         SessionManager.LoggedInUsername = username;
         SessionManager.LogIn = true;
 
-        Debug.Log($"Создан пользователь с именем: {username}");
+        Debug.Log($"РЎРѕР·РґР°РЅ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ РёРјРµРЅРµРј: {username}");
 
         db.Insert(newUser);
         return true;
     }
 
     /// <summary>
-    /// Проверяет, существует ли пользователь с указанным именем.
+    /// РџСЂРѕРІРµСЂСЏРµС‚, СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРјРµРЅРµРј.
     /// </summary>
     private bool IsUserExists(string username)
     {
-        // Получаем количество пользователей с данным именем.
+        // РџРѕР»СѓС‡Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ СЃ РґР°РЅРЅС‹Рј РёРјРµРЅРµРј.
         var count = db.Table<User>().Where(u => u.Username == username).Count();
         return count > 0;
     }
 
     public bool LoginUser(string username, string password)
     {
-        // Находим пользователя по имени.
+        // РќР°С…РѕРґРёРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕ РёРјРµРЅРё.
         var user = db.Table<User>().FirstOrDefault(u => u.Username == username);
         if (user == null)
         {
-            Debug.Log("Пользователь не найден");
+            Debug.Log("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ");
             return false;
         }
 
-        // Вычисляем хэш введенного пароля с использованием соли из базы.
+        // Р’С‹С‡РёСЃР»СЏРµРј С…СЌС€ РІРІРµРґРµРЅРЅРѕРіРѕ РїР°СЂРѕР»СЏ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј СЃРѕР»Рё РёР· Р±Р°Р·С‹.
         string enteredHash = PasswordHasher.ComputeHash(password, user.Salt);
         if (user.PasswordHash == enteredHash)
         {
             SessionManager.LoggedInUsername = username;
             SessionManager.LogIn = true;
             SessionManager.UserID = user.Id;
-            Debug.Log($"Вход выполнен, имя пользователя: {username}");
+            Debug.Log($"Р’С…РѕРґ РІС‹РїРѕР»РЅРµРЅ, РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: {username}");
             return true;
         }
 
-        Debug.Log("Неверный пароль!");
+        Debug.Log("РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ!");
         return false;
     }
-
+    
     public void AddGameHistory(int userId, GameName game, int score, int difficulty, bool victory,
         double timeTaken, double completionPercentage, int errorCount,
         int performanceRating, double averageReactionTime)
@@ -147,7 +147,7 @@ public class LocalDatabase : MonoBehaviour
 
     public List<GameHistory> GetHistoryForGame(int userId, GameName game)
     {
-        // Выбираем из таблицы GameHistory все записи для данного пользователя и игры.
+        // Р’С‹Р±РёСЂР°РµРј РёР· С‚Р°Р±Р»РёС†С‹ GameHistory РІСЃРµ Р·Р°РїРёСЃРё РґР»СЏ РґР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РёРіСЂС‹.
         return db.Table<GameHistory>()
                  .Where(h => h.UserId == userId && h.Game == game)
                  .OrderByDescending(h => h.DatePlayed)
@@ -164,7 +164,7 @@ public class LocalDatabase : MonoBehaviour
 }
 
 /// <summary>
-/// Класс модели для пользователя. SQLite4Unity3d использует атрибуты для создания таблицы.
+/// РљР»Р°СЃСЃ РјРѕРґРµР»Рё РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ. SQLite4Unity3d РёСЃРїРѕР»СЊР·СѓРµС‚ Р°С‚СЂРёР±СѓС‚С‹ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ С‚Р°Р±Р»РёС†С‹.
 /// </summary>
 public class User
 {
@@ -180,27 +180,27 @@ public class GameHistory
 {
     [PrimaryKey, AutoIncrement] public int Id { get; set; }
 
-    // Ссылка на пользователя, который прошёл игру.
+    // РЎСЃС‹Р»РєР° РЅР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РєРѕС‚РѕСЂС‹Р№ РїСЂРѕС€С‘Р» РёРіСЂСѓ.
     public int UserId { get; set; }
 
     public GameName Game { get; set; }
 
-    // Дата прохождения.
+    // Р”Р°С‚Р° РїСЂРѕС…РѕР¶РґРµРЅРёСЏ.
     public DateTime DatePlayed { get; set; }
 
-    // Набранный счёт.
+    // РќР°Р±СЂР°РЅРЅС‹Р№ СЃС‡С‘С‚.
     public int Score { get; set; }
 
-    // Уровень сложности.
+    // РЈСЂРѕРІРµРЅСЊ СЃР»РѕР¶РЅРѕСЃС‚Рё.
     public int DifficultyLevel { get; set; }
 
-    // Результат игры: победа или поражение.
+    // Р РµР·СѓР»СЊС‚Р°С‚ РёРіСЂС‹: РїРѕР±РµРґР° РёР»Рё РїРѕСЂР°Р¶РµРЅРёРµ.
     public bool Victory { get; set; }
 
-    // Поля для отслеживания прогресса.
-    public double TimeTaken { get; set; }            // Время прохождения в секундах.
-    public double CompletionPercentage { get; set; }   // Процент выполнения (например, от 0 до 100).
-    public int ErrorCount { get; set; }                // Количество ошибок или неточностей.
-    public int PerformanceRating { get; set; }         // Рейтинг или оценка выполнения (например, от 1 до 10).
+    // РџРѕР»СЏ РґР»СЏ РѕС‚СЃР»РµР¶РёРІР°РЅРёСЏ РїСЂРѕРіСЂРµСЃСЃР°.
+    public double TimeTaken { get; set; }            // Р’СЂРµРјСЏ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ РІ СЃРµРєСѓРЅРґР°С….
+    public double CompletionPercentage { get; set; }   // РџСЂРѕС†РµРЅС‚ РІС‹РїРѕР»РЅРµРЅРёСЏ (РЅР°РїСЂРёРјРµСЂ, РѕС‚ 0 РґРѕ 100).
+    public int ErrorCount { get; set; }                // РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС€РёР±РѕРє РёР»Рё РЅРµС‚РѕС‡РЅРѕСЃС‚РµР№.
+    public int PerformanceRating { get; set; }         // Р РµР№С‚РёРЅРі РёР»Рё РѕС†РµРЅРєР° РІС‹РїРѕР»РЅРµРЅРёСЏ (РЅР°РїСЂРёРјРµСЂ, РѕС‚ 1 РґРѕ 10).
     public double AverageReactionTime { get; set; }
 }
